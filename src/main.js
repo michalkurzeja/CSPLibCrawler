@@ -1,8 +1,6 @@
 var exports = module.exports = {};
 
-var request = require('request');
-var cheerio = require('cheerio');
-var DataFetcher = require('./DataFetcher/Abstraction/DataFetcher');
+var DataFetcher = require('./DataFetcher/CategoryListFetcher');
 
 exports.crawl = function() {
     var dataFetcher = new DataFetcher();
