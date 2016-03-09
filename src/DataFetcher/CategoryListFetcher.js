@@ -9,11 +9,11 @@ var util = require('util');
         DataFetcher.call(this, 'http://www.csplib.org/Problems/categories.html');
     }
 
-    util.inherits(CategoryListFetcher, DataFetcher);
-
     CategoryListFetcher.prototype.extractData = function($) {
         return $('h2.smaller').text();
     };
+
+    util.inherits(CategoryListFetcher, DataFetcher);
 
     this.CategoryListFetcher = CategoryListFetcher;
 }).call(this);

@@ -1,13 +1,16 @@
 var exports = module.exports = {};
 
-var DataFetcher = require('./DataFetcher/CategoryListFetcher');
-var Promise = require("bluebird");
-Promise.promisifyAll(require("request"));
+const app = require('auto-loader').load(__dirname);
+
+require("bluebird").promisifyAll(require("request"));
 
 exports.crawl = function() {
-    var dataFetcher = new DataFetcher();
+    var dataFetcher = new app.DataFetcher.CategoryListFetcher;
 
-    dataFetcher.fetch().then(function(data) {
-        console.log(data);
-    });
+    dataFetcher
+        .fetch()
+        .then(function(data) {
+            console.log(data);
+        })
+    ;
 };
