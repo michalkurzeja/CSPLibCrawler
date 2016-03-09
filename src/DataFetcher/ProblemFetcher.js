@@ -1,20 +1,40 @@
-var util = require('util');
-
 (function() {
     'use strict';
 
-    var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
+    var Promise = require("bluebird");
+    var SpecificationFetcher = require('./ProblemFetcher/SpecificationFetcher');
+    var DataFilesFetcher = require('./ProblemFetcher/DataFilesFetcher');
 
     function ProblemFetcher(problemId) {
         Object.defineProperty(this, 'problemId', {value: problemId});
-        DataFetcher.call(this, 'http://www.csplib.org/Problems/prob' + problemId);
     }
 
-    ProblemFetcher.prototype.extractData = function($) {
+    ProblemFetcher.prototype.fetch = function() {
+        var problemId = this.problemId;
 
+        var promise = new Promise(function(resolve) {
+            var problem = {};
+            return resolve(problem);
+        });
+
+        return promise
+            .then(function (problem) {
+                return (new SpecificationFetcher(problemId))
+                    .fetch()
+                    .then(function(specification) {
+                        problem.specification = specification;
+                        return problem;
+                    })
+            })
+            .then(function(problem) {
+                return (new DataFilesFetcher(problemId))
+                    .fetch()
+                    .then(function(dataFiles) {
+                        problem.dataFiles = dataFiles;
+                        return problem;
+                    });
+            });
     };
-
-    util.inherits(ProblemFetcher, DataFetcher);
 
     this.ProblemFetcher = ProblemFetcher;
 }).call(this);

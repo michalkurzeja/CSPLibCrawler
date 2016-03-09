@@ -3,6 +3,7 @@ GLOBAL.app = require('auto-loader').load(__dirname);
 require("bluebird").promisifyAll(require("request"));
 
 module.exports.crawl = function() {
+    var dataFetcher = new app.DataFetcher.ProblemFetcher('012');
 
     app.params = JSON.parse(require('fs').readFileSync('../data/params.json', 'utf8'));
 
