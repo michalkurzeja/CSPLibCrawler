@@ -16,8 +16,17 @@ module.exports.crawl = function() {
 
     authenticator
         .login()
-        .then(function(data) {
+        .then(function() {
             console.log('Success');
+        })
+        .then(function() {
+            var fetcher = new app.DataFetcher.ProblemFetcher('012');
+
+            return fetcher
+                .fetch()
+                .then(function(data) {
+                    console.log(data);
+                });
         })
     ;
 };
