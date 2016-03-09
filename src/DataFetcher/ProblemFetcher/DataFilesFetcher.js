@@ -1,9 +1,8 @@
-var util = require('util');
-
-(function() {
+;(function() {
     'use strict';
 
-    var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
+    var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
+    var Util        = use('Util');
 
     function DataFilesFetcher(problemId) {
         DataFetcher.call(this, 'http://www.csplib.org/Problems/prob' + problemId + '/data');
@@ -19,7 +18,7 @@ var util = require('util');
         }).toArray();
     };
 
-    util.inherits(DataFilesFetcher, DataFetcher);
+    Util.inherits(DataFilesFetcher, DataFetcher);
 
     this.DataFilesFetcher = DataFilesFetcher;
 }).call(this);

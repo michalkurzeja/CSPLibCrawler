@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    var HttpClient = app.Http.HttpClient;
-    var cheerio = require('cheerio');
+    var HttpClient  = use('Http.HttpClient');
+    var cheerio     = use('Cheerio');
 
     function DataFetcher(url) {
         Object.defineProperty(this, 'url', {value: url, writable: true});

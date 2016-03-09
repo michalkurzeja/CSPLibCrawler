@@ -1,9 +1,8 @@
-var util = require('util');
-
-(function() {
+;(function() {
     'use strict';
 
-    var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
+    var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
+    var Util        = use('Util');
 
     function CategoryListFetcher() {
         DataFetcher.call(this, 'http://www.csplib.org/Problems/categories.html');
@@ -25,7 +24,7 @@ var util = require('util');
         }).toArray();
     };
 
-    util.inherits(CategoryListFetcher, DataFetcher);
+    Util.inherits(CategoryListFetcher, DataFetcher);
 
     this.CategoryListFetcher = CategoryListFetcher;
 }).call(this);

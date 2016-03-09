@@ -1,9 +1,14 @@
-GLOBAL.app = require('auto-loader').load(__dirname);
+require('./Autoload/Autoloader.js')(__dirname);
 
-require("bluebird").promisifyAll(require("request"));
+GLOBAL.app = {};
+
+use('Auth.Authenticator');
+use('DataFetcher.ProblemFetcher');
+use('Fs');
 
 module.exports.crawl = function() {
-    app.params = JSON.parse(require('fs').readFileSync('../data/params.json', 'utf8'));
+
+    app.params = JSON.parse(Fs.readFileSync('../data/params.json', 'utf8'));
 
     process.argv.forEach(function (val, index, array) {
         if (val.indexOf('=') > -1) {
@@ -12,15 +17,20 @@ module.exports.crawl = function() {
         }
     });
 
-    var authenticator = new app.Auth.Authenticator;
+    var authenticator = new Auth.Authenticator();
 
     authenticator
         .login()
+        .then(
+            function() {
+                console.log('Success');
+            },
+            function() {
+                console.log('Failure');
+            }
+        )
         .then(function() {
-            console.log('Success');
-        })
-        .then(function() {
-            var fetcher = new app.DataFetcher.ProblemFetcher('012');
+            var fetcher = new DataFetcher.ProblemFetcher('012');
 
             return fetcher
                 .fetch()

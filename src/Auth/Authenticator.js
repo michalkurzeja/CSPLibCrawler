@@ -1,10 +1,10 @@
 ;(function() {
     'use strict';
 
-    var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
-    var HttpClient  = app.Http.HttpClient;
-    var cheerio = require('cheerio');
-    var util = require('util');
+    var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
+    var HttpClient  = use('Http.HttpClient');
+    var cheerio     = use('Cheerio');
+    var util        = use('Util');
 
     function Authenticator(url) {
         DataFetcher.call(this, app.params.lokiPath + 'start&do=login');

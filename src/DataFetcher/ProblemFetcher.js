@@ -1,9 +1,9 @@
-(function() {
+;(function() {
     'use strict';
 
-    var Promise = require("bluebird");
-    var SpecificationFetcher = require('./ProblemFetcher/SpecificationFetcher');
-    var DataFilesFetcher = require('./ProblemFetcher/DataFilesFetcher');
+    var Promise              = use("Bluebird");
+    var SpecificationFetcher = use('DataFetcher.ProblemFetcher.SpecificationFetcher');
+    var DataFilesFetcher     = use('DataFetcher.ProblemFetcher.DataFilesFetcher');
 
     function ProblemFetcher(problemId) {
         Object.defineProperty(this, 'problemId', {value: problemId});
