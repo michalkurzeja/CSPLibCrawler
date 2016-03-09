@@ -1,6 +1,12 @@
 {
   "name": "csplib-crawler",
   "version": "0.0.1",
+  "description": "CSPLib Crawler",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michalkurzeja/CSPLibCrawler.git"
+  },
   "bin": "bin/crawl.js",
   "main": "src/main.js",
   "dependencies": {
