@@ -10,7 +10,9 @@ var util = require('util');
     }
 
     CategoryListFetcher.prototype.extractData = function($) {
-        return $('h2.smaller').text();
+        return $('h2.smaller').map(function(index, element) {
+            return $(element).text();
+        }).toArray();
     };
 
     util.inherits(CategoryListFetcher, DataFetcher);
