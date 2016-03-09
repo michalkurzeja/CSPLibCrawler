@@ -1,18 +1,12 @@
 (function() {
     'use strict';
 
-    function PageLoader() {
-        Object.defineProperty(this, 'request', {value: require('request')});
-    }
+    var request = require('request');
+
+    function PageLoader() {}
 
     PageLoader.prototype.loadHTML = function(url) {
-        this.request.get(url, function(error, response, html) {
-            if (!error) {
-                return html;
-            }
-
-            throw 'Error loading page from [GET] ' + url;
-        });
+        return request.getAsync(url);
     };
 
     this.PageLoader = PageLoader;

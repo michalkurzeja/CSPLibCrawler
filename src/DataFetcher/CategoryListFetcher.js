@@ -11,8 +11,8 @@ var util = require('util');
 
     util.inherits(CategoryListFetcher, DataFetcher);
 
-    CategoryListFetcher.prototype.fetch = function() {
-        console.log($('h2.smaller').text());
+    CategoryListFetcher.prototype.extractData = function($) {
+        return $('h2.smaller').text();
     };
 
     this.CategoryListFetcher = CategoryListFetcher;

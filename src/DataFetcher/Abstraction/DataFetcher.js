@@ -5,18 +5,23 @@
     var cheerio = require('cheerio');
 
     function DataFetcher(url) {
-        Object.defineProperty(this, '$', {value: {}, writable: true});
-        Object.defineProperty(this, 'pageLoader', {value: new PageLoader(), writable: true});
-        this.$ = this.loadHTML(url);
+        Object.defineProperty(this, 'url', {value: url, writable: true});
+        Object.defineProperty(this, 'pageLoader', {value: new PageLoader()});
     }
 
     DataFetcher.prototype.fetch = function() {
-        throw 'Cannot use method of abstract class!';
+        var promise = this.pageLoader.loadHTML(this.url);
+
+        return promise.then((function(context) {
+            return function(result) {
+                var $ = cheerio.load(result.body);
+                return context.extractData($);
+            };
+        })(this));
     };
 
-    DataFetcher.prototype.loadHTML = function(url) {
-        var html = this.pageLoader.loadHTML(url);
-        return cheerio.load(html);
+    DataFetcher.prototype.extractData = function($) {
+        throw 'You can\'t call this method!';
     };
 
     this.DataFetcher = DataFetcher;
