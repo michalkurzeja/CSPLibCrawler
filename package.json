@@ -1,0 +1,10 @@
+{
+  "name": "csplib-crawler",
+  "version": "0.0.1",
+  "bin": "bin/crawl.js",
+  "main": "src/main.js",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "request": "^2.69.0"
+  }
+}
