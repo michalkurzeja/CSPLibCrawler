@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var PageLoader = require('../../PageLoader/PageLoader');
+    var PageLoader = app.PageLoader.PageLoader;
     var cheerio = require('cheerio');
 
     function DataFetcher(url) {

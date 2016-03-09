@@ -3,7 +3,7 @@ var util = require('util');
 (function() {
     'use strict';
 
-    var DataFetcher = require('./Abstraction/DataFetcher');
+    var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
 
     function CategoryListFetcher() {
         DataFetcher.call(this, 'http://www.csplib.org/Problems/categories.html');
