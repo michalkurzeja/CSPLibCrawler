@@ -1,16 +1,16 @@
 (function() {
     'use strict';
 
-    var PageLoader = app.PageLoader.PageLoader;
+    var HttpClient = app.Http.HttpClient;
     var cheerio = require('cheerio');
 
     function DataFetcher(url) {
         Object.defineProperty(this, 'url', {value: url, writable: true});
-        Object.defineProperty(this, 'pageLoader', {value: new PageLoader()});
+        Object.defineProperty(this, 'httpClient', {value: new HttpClient()});
     }
 
     DataFetcher.prototype.fetch = function() {
-        var promise = this.pageLoader.loadHTML(this.url);
+        var promise = this.httpClient.get(this.url);
 
         return promise.then((function(context) {
             return function(result) {

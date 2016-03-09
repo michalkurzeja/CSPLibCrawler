@@ -2,7 +2,7 @@
     'use strict';
 
     var DataFetcher = app.DataFetcher.Abstraction.DataFetcher;
-    var PageSender  = app.PageSender.PageSender;
+    var HttpClient  = app.Http.HttpClient;
     var cheerio = require('cheerio');
     var util = require('util');
 
@@ -11,7 +11,7 @@
     }
 
     Authenticator.prototype.login = function() {
-        var promise = this.pageLoader.loadHTML(this.url);
+        var promise = (new HttpClient).get(this.url);
 
         return promise.then((function(context) {
             return function(result) {
@@ -29,7 +29,7 @@
             sectok: token
         };
 
-        var promise = (new PageSender).post(app.params.lokiPath + 'start&do=login', form);
+        var promise = (new HttpClient).post(app.params.lokiPath + 'start&do=login', form);
 
         return promise.then((function(context) {
             return function(result) {
