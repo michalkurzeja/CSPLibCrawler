@@ -14,14 +14,19 @@
             "@file_loader.json"
         ]
     },
-    "data_fetcher.category": {
-        "class": "DataFetcher.CategoryFetcher"
+    "data_fetcher.category_list": {
+        "class": "DataFetcher.CategoryListFetcher",
+        "arguments": [
+            "@router"
+        ]
     },
     "data_fetcher.problem": {
         "class": "DataFetcher.ProblemFetcher",
         "arguments": [
             "@data_fetcher.problem.specification",
-            "@data_fetcher.problem.data_files"
+            "@data_fetcher.problem.data_files",
+            "@data_fetcher.problem.results",
+            "@data_fetcher.problem.references"
         ]
     },
     "data_fetcher.problem.specification": {
@@ -35,6 +40,16 @@
         "arguments": [
             "@router"
         ]
+    },
+    "data_fetcher.problem.results": {
+        "class": "DataFetcher.ProblemFetcher.ResultsFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.references": {
+        "class": "DataFetcher.ProblemFetcher.ReferencesFetcher",
+        "arguments": ["@router"]
     },
     "Doku.Authenticator": {
         "class": "Doku.Authenticator",

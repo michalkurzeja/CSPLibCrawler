@@ -4,9 +4,16 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
-    function CategoryListFetcher() {
-        DataFetcher.call(this, 'http://www.csplib.org/Problems/categories.html');
+    function CategoryListFetcher(router) {
+        Object.defineProperty(this, 'url', {
+            value: router.url(getParameter('csplib.host'), 'csplib.categories')
+        });
+        DataFetcher.call(this);
     }
+
+    CategoryListFetcher.prototype.fetch = function() {
+        return DataFetcher.prototype.fetch.call(this, this.url);
+    };
 
     CategoryListFetcher.prototype.extractData = function($) {
         return $('h2.smaller').map(function(i, category) {

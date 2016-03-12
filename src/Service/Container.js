@@ -69,17 +69,13 @@
             return ServiceClass;
         }
 
-        var args = definition.arguments
-            ? definition.arguments
-            : [];
-
         function Service(args) {
             return ServiceClass.apply(this, args);
         }
 
         Service.prototype = ServiceClass.prototype;
 
-        return new Service(parseArguments.call(this, args));
+        return new Service(parseArguments.call(this, definition.arguments));
     }
 
     function resolveDefinition(definition) {
@@ -88,6 +84,9 @@
         }
         if (typeof definition.shared === 'undefined') {
             definition.shared = true;
+        }
+        if (typeof definition.arguments == 'undefined') {
+            definition.arguments = [];
         }
     }
 
