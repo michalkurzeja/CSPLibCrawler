@@ -26,7 +26,8 @@
             "@data_fetcher.problem.specification",
             "@data_fetcher.problem.data_files",
             "@data_fetcher.problem.results",
-            "@data_fetcher.problem.references"
+            "@data_fetcher.problem.references",
+            "@data_fetcher.problem.models"
         ]
     },
     "data_fetcher.problem.specification": {
@@ -49,6 +50,10 @@
     },
     "data_fetcher.problem.references": {
         "class": "DataFetcher.ProblemFetcher.ReferencesFetcher",
+        "arguments": ["@router"]
+    },
+    "data_fetcher.problem.models": {
+        "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
         "arguments": ["@router"]
     },
     "Doku.Authenticator": {

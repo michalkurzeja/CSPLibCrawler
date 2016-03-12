@@ -4,6 +4,7 @@
     "csplib.problem.data_files": "Problems/prob{problemId}/data",
     "csplib.problem.results": "Problems/prob{problemId}/results",
     "csplib.problem.references": "Problems/prob{problemId}/references",
+    "csplib.problem.models": "Problems/prob{problemId}/models",
 
     "dokuwiki.login": "doku.php?id=start&do=login",
     "dokuwiki.page": "doku.php?id={pageId}&do=edit"

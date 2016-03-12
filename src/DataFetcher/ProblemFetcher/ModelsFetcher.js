@@ -4,17 +4,17 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
-    function ResultsFetcher(router) {
+    function ModelsFetcher(router) {
         Object.defineProperty(this, 'router', {value: router});
         DataFetcher.call(this);
     }
 
-    ResultsFetcher.prototype.fetch = function(problemId) {
-        var url = this.router.url(getParameter('csplib.host'), 'csplib.problem.results', {problemId: problemId});
+    ModelsFetcher.prototype.fetch = function(problemId) {
+        var url = this.router.url(getParameter('csplib.host'), 'csplib.problem.models', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 
-    ResultsFetcher.prototype.extractData = function($) {
+    ModelsFetcher.prototype.extractData = function($) {
         return {
             files: getFiles($),
             description: getDescription($)
@@ -39,9 +39,9 @@
         }).toArray()
     }
 
-    Util.inherits(ResultsFetcher, DataFetcher);
+    Util.inherits(ModelsFetcher, DataFetcher);
 
-    this.ResultsFetcher = ResultsFetcher;
+    this.ModelsFetcher = ModelsFetcher;
 }).call(this);
 
-module.exports = this.ResultsFetcher;
+module.exports = this.ModelsFetcher;

@@ -33,7 +33,7 @@ module.exports.crawl = function() {
                 var fetcher = getService('data_fetcher.problem');
 
                 return fetcher
-                    .fetch('012')
+                    .fetch('005')
                     .then(function(data) {
                         console.log(data);
                     });
