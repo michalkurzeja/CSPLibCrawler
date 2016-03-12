@@ -32,8 +32,11 @@
         var promise = (new HttpClient).post(this.url, form);
 
         return promise.then((function(context) {
-            return function(result) {
-                return Cheerio.load(result.body);
+            return function(response) {
+                return {
+                    response: response,
+                    data: Cheerio.load(response.body)
+                };
             };
         })(this));
     };

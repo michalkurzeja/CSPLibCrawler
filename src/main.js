@@ -4,24 +4,37 @@ global.app = {};
 global.app.rootDir = require('path').resolve(__dirname);
 
 use('Auth.Authenticator');
-use('DataFetcher.ProblemFetcher');
+use('Loki.PageEditor');
 use('Service.Container');
+var Promise = use('Bluebird');
 
 module.exports.crawl = function() {
     init();
 
-    var authenticator = new Auth.Authenticator('http://localhost/dokuwiki/doku.php?id=');
+    //var authenticator = new Auth.Authenticator('http://localhost/dokuwiki/doku.php?id=');
+    //var pageEditor = new Loki.PageEditor('http://localhost/dokuwiki/doku.php?id=');
+
+    var authenticator = new Promise(function(resolve) {
+        resolve();
+    });
 
     authenticator
-        .login()
-        .then(
-            function() {
-                console.log('Success');
-            },
-            function(err) {
-                console.log('Failure ' + err);
-            }
-        )
+        //.login()
+        //.then(
+        //    function(result) {
+        //        console.log('Success');
+        //        return result;
+        //    },
+        //    function(err) {
+        //        console.log('Failure ' + err);
+        //        throw err;
+        //    }
+        //)
+        //.then(
+        //    function(result) {
+        //        return pageEditor.editPage('problem:prob002', 'Hello World! Hacked by Michal Kurzeja', result.response.jar());
+        //    }
+        //)
         .then(function() {
             var fetcher = getService('data_fetcher.problem');
 

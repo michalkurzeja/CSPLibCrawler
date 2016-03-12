@@ -6,11 +6,20 @@
 
     function HttpClient() {}
 
-    HttpClient.prototype.get = function(url) {
+    HttpClient.prototype.get = function(url, cookieJar) {
+        cookieJar = cookieJar || Request.jar();
+
         return new Promise(function(resolve, reject) {
             Request.get(
-                { url: url },
+                {
+                    url: url,
+                    jar: cookieJar
+                },
                 function (error, response, body) {
+                    response.jar = function() {
+                        return cookieJar;
+                    };
+
                     if (!error) {
                         resolve(response);
                     }
@@ -21,11 +30,21 @@
         });
     };
 
-    HttpClient.prototype.post = function(url, formData) {
+    HttpClient.prototype.post = function(url, formData, cookieJar) {
+        cookieJar = cookieJar || Request.jar();
+
         return new Promise(function(resolve, reject) {
             Request.post(
-                { url: url, form: formData },
+                {
+                    url: url,
+                    form: formData,
+                    jar: cookieJar
+                },
                 function (error, response, body) {
+                    response.jar = function() {
+                        return cookieJar;
+                    };
+
                     if (!error) {
                         resolve(response);
                     }
