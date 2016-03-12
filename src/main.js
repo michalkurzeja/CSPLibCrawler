@@ -1,21 +1,15 @@
 require('./Autoload/Autoloader.js')(__dirname);
 
-GLOBAL.app = {};
+global.app = {};
+global.appRoot = require('path').resolve(__dirname);
 
 use('Auth.Authenticator');
 use('DataFetcher.ProblemFetcher');
 use('Fs');
+var ParametersLoader = use('Config.ParametersLoader');
 
 module.exports.crawl = function() {
-
-    app.params = JSON.parse(Fs.readFileSync('../data/params.json', 'utf8'));
-
-    process.argv.forEach(function (val, index, array) {
-        if (val.indexOf('=') > -1) {
-            var keyVal = val.replace(/-/g, '').split('=');
-            app.params[keyVal[0]] = keyVal[1];
-        }
-    });
+    init();
 
     var authenticator = new Auth.Authenticator();
 
@@ -40,3 +34,9 @@ module.exports.crawl = function() {
         })
     ;
 };
+
+function init() {
+    "use strict";
+
+    ParametersLoader.load();
+}
