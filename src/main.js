@@ -6,7 +6,7 @@ global.appRoot = require('path').resolve(__dirname);
 use('Auth.Authenticator');
 use('DataFetcher.ProblemFetcher');
 use('Fs');
-var ParametersLoader = use('Config.ParametersLoader');
+use('Config.ParametersLoader');
 
 module.exports.crawl = function() {
     init();
@@ -38,5 +38,5 @@ module.exports.crawl = function() {
 function init() {
     "use strict";
 
-    ParametersLoader.load();
+    new Config.ParametersLoader().load();
 }

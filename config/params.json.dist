@@ -1,3 +1,4 @@
 {
-    "lokiPath": "http://<wiki-url>/doku.php?id="
+    "dokuwikiHost": "http://<wiki-url>/",
+    "cspLibHost": "http://www.csplib.org/"
 }

@@ -1,11 +1,13 @@
 ;(function() {
     "use strict";
 
-    var Fs = use('Fs');
+    use('Fs');
 
     const PARAMETERS_PATH = global.appRoot + '/../config/params.json';
 
-    var load = function() {
+    function ParametersLoader() {}
+
+    ParametersLoader.prototype.load = function() {
         global.app.params = JSON.parse(Fs.readFileSync(PARAMETERS_PATH, 'utf8'));
 
         process.argv.forEach(function (val, index, array) {
@@ -16,7 +18,7 @@
         });
     };
 
-    this.load = load;
+    this.ParametersLoader = ParametersLoader;
 }).call(this);
 
-module.exports = {load: this.load};
+module.exports = this.ParametersLoader;

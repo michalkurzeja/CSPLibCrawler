@@ -1,0 +1,5 @@
+{
+  "dokuwiki.categories": "Problems/categories.html",
+  "dokuwiki.problem": "Problems/prob{problemId}",
+  "dokuwiki.problem.data_files": "Problems/prob{problemId}/data"
+}
