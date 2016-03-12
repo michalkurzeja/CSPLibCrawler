@@ -6,8 +6,10 @@
     var Cheerio     = use('Cheerio');
     var Util        = use('Util');
 
-    function Authenticator(url) {
-        DataFetcher.call(this, url + 'start&do=login');
+    function Authenticator(router) {
+        Object.defineProperty(this, 'url', {
+            value: router.url(getParameter('dokuwiki.host'), 'dokuwiki.login')
+        });
     }
 
     Authenticator.prototype.login = function() {
@@ -40,8 +42,6 @@
             };
         })(this));
     };
-
-    Util.inherits(Authenticator, DataFetcher);
 
     this.Authenticator = Authenticator;
 }).call(this);

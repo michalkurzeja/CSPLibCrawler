@@ -7,16 +7,18 @@
     /**
      * @constructor
      */
-    function PageEditor(url) {
-        Object.defineProperty(this, 'url', { value: url });
+    function PageUploader(router) {
+        Object.defineProperty(this, 'router', {
+            value: router
+        });
     }
 
     /**
      * @public
      */
-    PageEditor.prototype.editPage = function(id, data, cookieJar) {
-        var url = this.url;
-        var promise = (new HttpClient).get(url + id + '&do=edit', cookieJar);
+    PageUploader.prototype.editPage = function(id, data, cookieJar) {
+        var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.page', { pageId: id });
+        var promise = (new HttpClient).get(url, cookieJar);
 
         return promise
             .then(
@@ -30,7 +32,7 @@
             .then(
                 function(result) {
                     return (new HttpClient).post(
-                        url + id + '&do=edit',
+                        url,
                         {
                             changecheck: result.data.changecheck,
                             date: Math.floor((new Date()).getTime() / 1e3),
@@ -50,8 +52,6 @@
             )
             .then(
                 function(response) {
-                    console.log(response.body);
-
                     return {
                         response: response,
                         data: {}
@@ -73,7 +73,7 @@
         };
     }
 
-    this.PageEditor = PageEditor;
+    this.PageUploader = PageUploader;
 }).call(this);
 
-module.exports = this.PageEditor;
+module.exports = this.PageUploader;

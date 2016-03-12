@@ -1,4 +1,4 @@
 {
-  "dokuwiki.host": "http://dokuwiki/",
-  "csplib.host": "http://www.csplib.org/"
+    "dokuwiki.host": "http://localhost/dokuwiki/",
+    "csplib.host": "http://www.csplib.org/"
 }

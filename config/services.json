@@ -1,33 +1,51 @@
 {
-  "file_loader.json": {
-    "class": "FileLoader.JsonLoader"
-  },
-  "config.loader.parameters": {
-    "class": "Config.ParametersLoader",
-    "arguments": ["@file_loader.json"]
-  },
-
-  "router": {
-    "class": "Router.Router",
-    "arguments": ["@file_loader.json"]
-  },
-
-  "data_fetcher.category": {
-    "class": "DataFetcher.CategoryFetcher"
-  },
-  "data_fetcher.problem": {
-    "class": "DataFetcher.ProblemFetcher",
-    "arguments": [
-      "@data_fetcher.problem.specification",
-      "@data_fetcher.problem.data_files"
-    ]
-  },
-  "data_fetcher.problem.specification": {
-    "class": "DataFetcher.ProblemFetcher.SpecificationFetcher",
-    "arguments": ["@router"]
-  },
-  "data_fetcher.problem.data_files": {
-    "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
-    "arguments": ["@router"]
-  }
+    "file_loader.json": {
+        "class": "FileLoader.JsonLoader"
+    },
+    "config.loader.parameters": {
+        "class": "Config.ParametersLoader",
+        "arguments": [
+            "@file_loader.json"
+        ]
+    },
+    "router": {
+        "class": "Router.Router",
+        "arguments": [
+            "@file_loader.json"
+        ]
+    },
+    "data_fetcher.category": {
+        "class": "DataFetcher.CategoryFetcher"
+    },
+    "data_fetcher.problem": {
+        "class": "DataFetcher.ProblemFetcher",
+        "arguments": [
+            "@data_fetcher.problem.specification",
+            "@data_fetcher.problem.data_files"
+        ]
+    },
+    "data_fetcher.problem.specification": {
+        "class": "DataFetcher.ProblemFetcher.SpecificationFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem.data_files": {
+        "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "Doku.Authenticator": {
+        "class": "Doku.Authenticator",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "Doku.PageUploader": {
+        "class": "Doku.PageUploader",
+        "arguments": [
+            "@router"
+        ]
+    }
 }
