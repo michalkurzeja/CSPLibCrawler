@@ -1,8 +1,8 @@
 ;(function() {
     'use strict';
 
+    use('Util');
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
-    var Util        = use('Util');
 
     function SpecificationFetcher(problemId) {
         DataFetcher.call(this, 'http://www.csplib.org/Problems/prob' + problemId);

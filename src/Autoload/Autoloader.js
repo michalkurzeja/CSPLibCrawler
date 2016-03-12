@@ -11,7 +11,7 @@
     }
 
     Autoloader.prototype.init = function(url) {
-        GLOBAL.use = (function(scope) {
+        global.use = (function(scope) {
             return function(className) {
                 var classPath = className.replace(/\./g, '/').replace(/\.js$/, '');
 

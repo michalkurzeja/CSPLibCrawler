@@ -1,0 +1,7 @@
+{
+  "router": {
+    "class": "Router.Router",
+    "module": true,
+    "shared": true
+  }
+}
