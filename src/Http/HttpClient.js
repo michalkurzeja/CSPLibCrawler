@@ -1,4 +1,4 @@
-(function() {
+;(function() {
     'use strict';
 
     var Request = use('Request');
@@ -11,7 +11,7 @@
             Request.get(
                 { url: url },
                 function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
+                    if (!error) {
                         resolve(response);
                     }
 
@@ -26,7 +26,7 @@
             Request.post(
                 { url: url, form: formData },
                 function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
+                    if (!error) {
                         resolve(response);
                     }
 

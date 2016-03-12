@@ -12,7 +12,7 @@ use('Service.Container');
 module.exports.crawl = function() {
     init();
 
-    var authenticator = new Auth.Authenticator();
+    var authenticator = new Auth.Authenticator('http://localhost/dokuwiki/doku.php?id=');
 
     authenticator
         .login()
@@ -20,8 +20,8 @@ module.exports.crawl = function() {
             function() {
                 console.log('Success');
             },
-            function() {
-                console.log('Failure');
+            function(err) {
+                console.log('Failure ' + err);
             }
         )
         .then(function() {

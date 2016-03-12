@@ -3,11 +3,11 @@
 
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var HttpClient  = use('Http.HttpClient');
-    var cheerio     = use('Cheerio');
-    var util        = use('Util');
+    var Cheerio     = use('Cheerio');
+    var Util        = use('Util');
 
     function Authenticator(url) {
-        DataFetcher.call(this, app.params.lokiPath + 'start&do=login');
+        DataFetcher.call(this, url + 'start&do=login');
     }
 
     Authenticator.prototype.login = function() {
@@ -15,7 +15,7 @@
 
         return promise.then((function(context) {
             return function(result) {
-                return context.extractData(cheerio.load(result.body));
+                return context.extractData(Cheerio.load(result.body));
             };
         })(this));
     };
@@ -29,16 +29,16 @@
             sectok: token
         };
 
-        var promise = (new HttpClient).post(app.params.lokiPath + 'start&do=login', form);
+        var promise = (new HttpClient).post(this.url, form);
 
         return promise.then((function(context) {
             return function(result) {
-                return cheerio.load(result.body);
+                return Cheerio.load(result.body);
             };
         })(this));
     };
 
-    util.inherits(Authenticator, DataFetcher);
+    Util.inherits(Authenticator, DataFetcher);
 
     this.Authenticator = Authenticator;
 }).call(this);
