@@ -1,12 +1,18 @@
 ;(function() {
     'use strict';
 
-    use('Util');
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
+    var Util        = use('Util');
 
-    function SpecificationFetcher(problemId) {
-        DataFetcher.call(this, 'http://www.csplib.org/Problems/prob' + problemId);
+    function SpecificationFetcher(router) {
+        Object.defineProperty(this, 'router', {value: router});
+        DataFetcher.call(this);
     }
+
+    SpecificationFetcher.prototype.fetch = function(problemId) {
+        var route = this.router.url(getParameter('csplib.host'), 'csplib.problem', {problemId: problemId});
+        return DataFetcher.prototype.fetch.call(this, route);
+    };
 
     SpecificationFetcher.prototype.extractData = function($) {
         var specification = {};

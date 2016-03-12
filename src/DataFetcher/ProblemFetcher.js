@@ -1,39 +1,40 @@
 ;(function() {
     'use strict';
 
-    var Promise              = use("Bluebird");
-    var SpecificationFetcher = use('DataFetcher.ProblemFetcher.SpecificationFetcher');
-    var DataFilesFetcher     = use('DataFetcher.ProblemFetcher.DataFilesFetcher');
+    var Promise = use("Bluebird");
 
-    function ProblemFetcher(problemId) {
-        Object.defineProperty(this, 'problemId', {value: problemId});
+    function ProblemFetcher(specificationFetcher, dataFilesFetcher) {
+        Object.defineProperty(this, 'specificationFetcher', {value: specificationFetcher});
+        Object.defineProperty(this, 'dataFilesFetcher', {value: dataFilesFetcher});
     }
 
-    ProblemFetcher.prototype.fetch = function() {
-        var problemId = this.problemId;
-
+    ProblemFetcher.prototype.fetch = function(problemId) {
         var promise = new Promise(function(resolve) {
             var problem = {};
             return resolve(problem);
         });
 
         return promise
-            .then(function (problem) {
-                return (new SpecificationFetcher(problemId))
-                    .fetch()
-                    .then(function(specification) {
-                        problem.specification = specification;
-                        return problem;
-                    })
-            })
-            .then(function(problem) {
-                return (new DataFilesFetcher(problemId))
-                    .fetch()
-                    .then(function(dataFiles) {
-                        problem.dataFiles = dataFiles;
-                        return problem;
-                    });
-            });
+            .then((function(scope) {
+                return function(problem) {
+                    return (scope.specificationFetcher.fetch(problemId))
+                        .then(function(specification) {
+                            problem.specification = specification;
+                            return problem;
+                        });
+                }
+            })(this))
+
+            .then((function(scope) {
+                return function(problem) {
+                    return (scope.dataFilesFetcher.fetch(problemId))
+                        .then(function(dataFiles) {
+                            problem.dataFiles = dataFiles;
+                            return problem;
+                        });
+                }
+            })(this))
+        ;
     };
 
     this.ProblemFetcher = ProblemFetcher;

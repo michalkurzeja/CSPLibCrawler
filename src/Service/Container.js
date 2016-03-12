@@ -10,6 +10,10 @@
         Object.defineProperty(this, 'serviceDefinitions', {value: JSON.parse(Fs.readFileSync(SERVICES_PATH, 'utf8'))});
         Object.defineProperty(this, 'services', {value: {}});
 
+        for (var serviceName in this.serviceDefinitions) {
+            resolveDefinition(this.serviceDefinitions[serviceName]);
+        }
+
         global.getService = (function(scope) {
             return function(serviceName) {
                 return scope.get(serviceName);
@@ -61,13 +65,50 @@
             ? use(definition.class)
             : definition.class;
 
+        if (!isConstructable.call(this, ServiceClass)) {
+            return ServiceClass;
+        }
+
+        var args = definition.arguments
+            ? definition.arguments
+            : [];
+
         function Service(args) {
             return ServiceClass.apply(this, args);
         }
 
         Service.prototype = ServiceClass.prototype;
 
-        return new Service(definition.arguments);
+        return new Service(parseArguments.call(this, args));
+    }
+
+    function resolveDefinition(definition) {
+        if (typeof definition.module === 'undefined') {
+            definition.module = true;
+        }
+        if (typeof definition.shared === 'undefined') {
+            definition.shared = true;
+        }
+    }
+
+    function parseArguments(args) {
+        var scope = this;
+        var parsedArgs = [];
+
+        args.forEach(function(argument) {
+            if (argument.startsWith('@')) {
+                parsedArgs.push(scope.get(argument.substr(1)));
+            } else {
+                parsedArgs.push(argument);
+            }
+
+        });
+
+        return parsedArgs;
+    }
+
+    function isConstructable(Service) {
+        return typeof Service.apply !== 'undefined';
     }
 
     this.Container = Container;

@@ -1,5 +1,5 @@
 {
-  "dokuwiki.categories": "Problems/categories.html",
-  "dokuwiki.problem": "Problems/prob{problemId}",
-  "dokuwiki.problem.data_files": "Problems/prob{problemId}/data"
+  "csplib.categories": "Problems/categories.html",
+  "csplib.problem": "Problems/prob{problemId}",
+  "csplib.problem.data_files": "Problems/prob{problemId}/data"
 }

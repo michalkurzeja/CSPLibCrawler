@@ -1,23 +1,26 @@
 ;(function() {
     "use strict";
 
-    use('Fs');
     use('util');
 
     const ROUTES_PATH = global.app.rootDir + '/../config/routes.json';
 
-    function Router() {
-        Object.defineProperty(this, 'routes', {value: JSON.parse(Fs.readFileSync(ROUTES_PATH, 'utf8'))});
+    function Router(jsonLoader) {
+        Object.defineProperty(this, 'routes', {value: jsonLoader.load(ROUTES_PATH)});
     }
 
     Router.prototype.path = function(routeName, params) {
-        guardAgainstUndefinedRoute(routeName);
+        guardAgainstUndefinedRoute.call(this, routeName);
 
-        var path = getPath(routeName).slice(0);
+        if (typeof params === 'undefined') {
+            params = {};
+        }
 
-        params.forEach(function(value, key) {
-            path.replace('{' + key + '}', value);
-        });
+        var path = getPath.call(this, routeName).slice(0);
+
+        for (var key in params) {
+            path = path.replace('{' + key + '}', params[key]);
+        }
 
         return path;
     };
@@ -27,7 +30,7 @@
     };
 
     function guardAgainstUndefinedRoute(routeName) {
-        if (!getPath(routeName)) {
+        if (!getPath.call(this, routeName)) {
             throw util.format('Route "%s" is not defined.', routeName);
         }
     }

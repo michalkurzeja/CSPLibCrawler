@@ -4,13 +4,12 @@
     var HttpClient  = use('Http.HttpClient');
     var cheerio     = use('Cheerio');
 
-    function DataFetcher(url) {
-        Object.defineProperty(this, 'url', {value: url, writable: true});
+    function DataFetcher() {
         Object.defineProperty(this, 'httpClient', {value: new HttpClient()});
     }
 
-    DataFetcher.prototype.fetch = function() {
-        var promise = this.httpClient.get(this.url);
+    DataFetcher.prototype.fetch = function(url) {
+        var promise = this.httpClient.get(url);
 
         return promise.then((function(context) {
             return function(result) {

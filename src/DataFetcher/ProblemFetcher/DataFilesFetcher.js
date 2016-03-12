@@ -4,9 +4,15 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
-    function DataFilesFetcher(problemId) {
-        DataFetcher.call(this, 'http://www.csplib.org/Problems/prob' + problemId + '/data');
+    function DataFilesFetcher(router) {
+        Object.defineProperty(this, 'router', {value: router});
+        DataFetcher.call(this);
     }
+
+    DataFilesFetcher.prototype.fetch = function(problemId) {
+        var route = this.router.url(getParameter('csplib.host'), 'csplib.problem.data_files', {problemId: problemId});
+        return DataFetcher.prototype.fetch.call(this, route);
+    };
 
     DataFilesFetcher.prototype.extractData = function($) {
         return $('table.tablesorter > tbody').find('tr').map(function(i, dataFile) {

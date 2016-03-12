@@ -1,14 +1,20 @@
 ;(function() {
     "use strict";
 
-    use('Fs');
-
     const PARAMETERS_PATH = global.app.rootDir + '/../config/params.json';
 
-    function ParametersLoader() {}
+    function ParametersLoader(jsonLoader) {
+        Object.defineProperty(this, 'jsonLoader', {value: jsonLoader});
+
+        global.getParameter = (function(scope) {
+            return function(param) {
+                return global.app.params[param];
+            };
+        })(this);
+    }
 
     ParametersLoader.prototype.load = function() {
-        global.app.params = JSON.parse(Fs.readFileSync(PARAMETERS_PATH, 'utf8'));
+        global.app.params = this.jsonLoader.load(PARAMETERS_PATH);
 
         process.argv.forEach(function (val) {
             if (val.indexOf('=') > -1) {
