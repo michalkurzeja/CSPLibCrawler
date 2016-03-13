@@ -8,5 +8,6 @@
     "csplib.problem.cite": "Problems/prob{problemId}/cite",
 
     "dokuwiki.login": "doku.php?id=start&do=login",
-    "dokuwiki.page": "doku.php?id={pageId}&do=edit"
+    "dokuwiki.page": "doku.php?id={pageId}&do=edit",
+    "dokuwiki.file": "lib/exe/mediamanager.php?ns=problem"
 }

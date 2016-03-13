@@ -3,6 +3,7 @@
 
     var Request = use('Request');
     var Promise = use('Bluebird');
+    var Merge   = use('Merge');
 
     function HttpClient() {}
 
@@ -30,16 +31,15 @@
         });
     };
 
-    HttpClient.prototype.post = function(url, formData, cookieJar) {
+    HttpClient.prototype.post = function(data, cookieJar) {
         cookieJar = cookieJar || Request.jar();
 
         return new Promise(function(resolve, reject) {
             Request.post(
-                {
-                    url: url,
-                    form: formData,
-                    jar: cookieJar
-                },
+                Merge(
+                    { jar: cookieJar },
+                    data
+                ),
                 function (error, response, body) {
                     response.jar = function() {
                         return cookieJar;
@@ -49,7 +49,7 @@
                         resolve(response);
                     }
 
-                    reject('Received error on [POST] ' + url);
+                    reject('Received error on [POST] ' + data.url);
                 }
             );
         });

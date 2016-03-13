@@ -3,11 +3,12 @@
 
     var HttpClient = use('Http.HttpClient');
     var Cheerio    = use('Cheerio');
+    var Fs         = use('Fs');
 
     /**
      * @constructor
      */
-    function PageUploader(router) {
+    function FileUploader(router) {
         Object.defineProperty(this, 'router', {
             value: router
         });
@@ -16,8 +17,8 @@
     /**
      * @public
      */
-    PageUploader.prototype.editPage = function(id, data, cookieJar) {
-        var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.page', { pageId: id });
+    FileUploader.prototype.uploadFile = function(fileName, fileBinary, cookieJar) {
+        var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.file');
         var promise = (new HttpClient).get(url, cookieJar);
 
         return promise
@@ -34,18 +35,17 @@
                     return (new HttpClient).post(
                         {
                             url: url,
+                            headers: {
+                                'Content-Type': 'application/octet-stream'
+                            },
+                            body: Fs.createReadStream('/home/skie/Desktop/smallHorse3.jpg'),
                             form: {
-                                changecheck: result.data.changecheck,
-                                date: Math.floor((new Date()).getTime() / 1e3),
-                                do: { save: 'Save' },
-                                id: id,
-                                prefix: '.',
-                                rev: 0,
-                                sectok: result.data.sectok,
-                                suffix: '',
-                                summary: '',
-                                target: 'section',
-                                wikitext: data
+                                call: 'mediaupload',
+                                mediaid: '',
+                                ns: 'problem',
+                                ow: 'checked',
+                                qqfile: fileName,
+                                sectok: result.data.sectok
                             }
                         },
                         result.response.jar()
@@ -67,15 +67,14 @@
      * @private
      */
     function extractData($) {
-        var $form = $('#dw__editform');
+        var $form = $('#media__content');
 
         return {
-            sectok: $form.find('input[name=sectok]').val(),
-            changecheck: $form.find('input[name=changecheck]').val()
+            sectok: $form.find('input[name=sectok]').val()
         };
     }
 
-    this.PageUploader = PageUploader;
+    this.FileUploader = FileUploader;
 }).call(this);
 
-module.exports = this.PageUploader;
+module.exports = this.FileUploader;

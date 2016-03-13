@@ -72,5 +72,11 @@
         "arguments": [
             "@router"
         ]
+    },
+    "Doku.FileUploader": {
+        "class": "Doku.FileUploader",
+        "arguments": [
+            "@router"
+        ]
     }
 }

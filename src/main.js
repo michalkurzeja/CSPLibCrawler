@@ -25,7 +25,12 @@ module.exports.crawl = function() {
         )
         //.then(
         //    function(result) {
-        //        return getService('Doku.PageUploader').editPage('problem:prob001', 'Hello Underworld!', result.response.jar());
+        //        return getService('Doku.PageUploader').editPage('problem:prob001', 'Hello Underworld! Hacked by Mich41 Kurz3j4', result.response.jar());
+        //    }
+        //)
+        //.then(
+        //    function(result) {
+        //        return getService('Doku.FileUploader').uploadFile('smallHorseA.jpg', {}, result.response.jar());
         //    }
         //)
         .then(
