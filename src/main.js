@@ -4,7 +4,7 @@ global.app = {};
 global.app.rootDir = require('path').resolve(__dirname);
 
 use('Service.Container');
-use('Bluebird');
+var Promise = use('Bluebird');
 
 module.exports.crawl = function() {
     init()
@@ -15,7 +15,6 @@ module.exports.crawl = function() {
         )
         .then(
             function(result) {
-                console.log('Success');
                 return result;
             },
             function(err) {
@@ -33,28 +32,12 @@ module.exports.crawl = function() {
         //        return getService('doku.file_uploader').uploadFile('smallHorseA.jpg', {}, result.response.jar());
         //    }
         //)
-        .then(
-            function() {
-                var fetcher = getService('data_fetcher.problem');
+        .then(function(loginResult) {
+            var cookieJar = loginResult.response.jar();
+            var publisher = getService('publisher.categories');
 
-                return fetcher
-                    .fetch('005')
-                    .then(function(data) {
-                        console.log(data.results);
-                    });
-            }
-        )
-        //.then(
-        //    function() {
-        //        var downloadsManager = getService('downloads_manager');
-        //
-        //        return downloadsManager
-        //            .download('http://2f5op72faihm48ddaw17suvf.wpengine.netdna-cdn.com/wp-content/uploads/2016/01/mh5-7640185210_f483b16877_o.jpg')
-        //            .then(function(stream) {
-        //                console.log(stream);
-        //            });
-        //    }
-        //)
+            return publisher.publish(cookieJar);
+        })
     ;
 };
 
@@ -62,10 +45,7 @@ function init() {
     global.app.container = new Service.Container();
     getService('config.loader.parameters').load();
 
-    //var downloadsManager = getService('downloads_manager');
-    //return downloadsManager.download('http://2f5op72faihm48ddaw17suvf.wpengine.netdna-cdn.com/wp-content/uploads/2016/01/mh5-7640185210_f483b16877_o.jpg');
-
-    return new Bluebird(function(resolve) {
+    return new Promise(function(resolve) {
         resolve();
     });
 }

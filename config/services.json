@@ -93,5 +93,16 @@
         "arguments": [
             "@http_client"
         ]
+    },
+    "content_generator.category": {
+        "class": "Doku.ContentGenerator.CategoryContentGenerator"
+    },
+    "publisher.categories": {
+        "class": "Publisher.CategoriesPublisher",
+        "arguments": [
+            "@data_fetcher.category_list",
+            "@content_generator.category",
+            "@doku.page_uploader"
+        ]
     }
 }

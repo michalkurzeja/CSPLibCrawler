@@ -1,0 +1,13 @@
+~~NOCACHE~~
+[[category:kategoria| ]]
+[[nazwa:={{ data.name }}| ]]
+
+====== {{ data.name }} ======
+
+
+Problemy:
+{{ '{{' -}}
+#ask: [[category:problem]] [[nalezyDo::kategoria: {{- data.name | replace(' ', '-') | lower -}} ]] |
+   ?nazwa=Nazwa |
+   default=Brak wyników!
+}}
