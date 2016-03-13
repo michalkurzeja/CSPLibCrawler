@@ -10,7 +10,7 @@
     }
 
     DataFilesFetcher.prototype.fetch = function(problemId) {
-        var url = this.router.url(getParameter('csplib.host'), 'csplib.problem.data_files', {problemId: problemId});
+        var url = this.router.url('%csplib.host%', 'csplib.problem.data_files', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 

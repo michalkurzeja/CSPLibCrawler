@@ -26,7 +26,7 @@
     };
 
     Router.prototype.url = function(host, routeName, params) {
-        return host + this.path(routeName, params);
+        return resolveHost(host) + this.path(routeName, params);
     };
 
     function guardAgainstUndefinedRoute(routeName) {
@@ -37,6 +37,14 @@
 
     function getPath(routeName) {
         return this.routes[routeName];
+    }
+
+    function resolveHost(host) {
+        if (host.startsWith('%') && host.endsWith('%')) {
+            return getParameter(host.slice(1, -1));
+        }
+
+        return host;
     }
 
     this.Router = Router;

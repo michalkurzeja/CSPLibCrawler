@@ -4,13 +4,14 @@
     var Promise = use("Bluebird");
 
     function ProblemFetcher(
-        specificationFetcher, dataFilesFetcher, resultsFetcher, referencesFetcher, modelsFetcher
+        specificationFetcher, dataFilesFetcher, resultsFetcher, referencesFetcher, modelsFetcher, citeFetcher
     ) {
         Object.defineProperty(this, 'specificationFetcher', {value: specificationFetcher});
         Object.defineProperty(this, 'dataFilesFetcher', {value: dataFilesFetcher});
         Object.defineProperty(this, 'resultsFetcher', {value: resultsFetcher});
         Object.defineProperty(this, 'referencesFetcher', {value: referencesFetcher});
         Object.defineProperty(this, 'modelsFetcher', {value: modelsFetcher});
+        Object.defineProperty(this, 'citeFetcher', {value: citeFetcher});
     }
 
     ProblemFetcher.prototype.fetch = function(problemId) {
@@ -34,6 +35,9 @@
             })(this))
             .then((function(scope) {
                 return fetchPromise(scope.modelsFetcher.fetch(problemId), 'models')
+            })(this))
+            .then((function(scope) {
+                return fetchPromise(scope.citeFetcher.fetch(problemId), 'cite')
             })(this))
         ;
     };

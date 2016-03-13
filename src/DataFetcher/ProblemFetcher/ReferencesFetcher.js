@@ -10,7 +10,7 @@
     }
 
     ReferencesFetcher.prototype.fetch = function(problemId) {
-        var url = this.router.url(getParameter('csplib.host'), 'csplib.problem.references', {problemId: problemId});
+        var url = this.router.url('%csplib.host%', 'csplib.problem.references', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 

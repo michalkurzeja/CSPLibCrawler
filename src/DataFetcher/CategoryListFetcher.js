@@ -6,7 +6,7 @@
 
     function CategoryListFetcher(router) {
         Object.defineProperty(this, 'url', {
-            value: router.url(getParameter('csplib.host'), 'csplib.categories')
+            value: router.url('%csplib.host%', 'csplib.categories')
         });
         DataFetcher.call(this);
     }
