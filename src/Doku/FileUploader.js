@@ -38,7 +38,7 @@
                             headers: {
                                 'Content-Type': 'application/octet-stream'
                             },
-                            body: Fs.createReadStream('/home/skie/Desktop/smallHorse3.jpg'),
+                            body: Fs.createReadStream('/home/skie/Desktop/smallHorse4.jpg'),
                             form: {
                                 call: 'mediaupload',
                                 mediaid: '',
@@ -54,6 +54,8 @@
             )
             .then(
                 function(response) {
+                    console.log(response.body);
+
                     return {
                         response: response,
                         data: {}

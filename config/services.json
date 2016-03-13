@@ -51,29 +51,35 @@
     },
     "data_fetcher.problem.references": {
         "class": "DataFetcher.ProblemFetcher.ReferencesFetcher",
-        "arguments": ["@router"]
+        "arguments": [
+            "@router"
+        ]
     },
     "data_fetcher.problem.models": {
         "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
-        "arguments": ["@router"]
+        "arguments": [
+            "@router"
+        ]
     },
     "data_fetcher.problem.cite": {
         "class": "DataFetcher.ProblemFetcher.CiteFetcher",
-        "arguments": ["@router"]
+        "arguments": [
+            "@router"
+        ]
     },
-    "Doku.Authenticator": {
+    "doku.authenticator": {
         "class": "Doku.Authenticator",
         "arguments": [
             "@router"
         ]
     },
-    "Doku.PageUploader": {
+    "doku.page_uploader": {
         "class": "Doku.PageUploader",
         "arguments": [
             "@router"
         ]
     },
-    "Doku.FileUploader": {
+    "doku.file_uploader": {
         "class": "Doku.FileUploader",
         "arguments": [
             "@router"
