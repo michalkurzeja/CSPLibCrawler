@@ -2,9 +2,12 @@
     "csplib.categories": "Problems/categories.html",
     "csplib.problem": "Problems/prob{problemId}",
     "csplib.problem.data_files": "Problems/prob{problemId}/data",
+    "csplib.problem.data_files.file": "Problems/prob{problemId}/data/{fileName}",
     "csplib.problem.results": "Problems/prob{problemId}/results",
+    "csplib.problem.results.file": "Problems/prob{problemId}/results/{fileName}",
     "csplib.problem.references": "Problems/prob{problemId}/references",
     "csplib.problem.models": "Problems/prob{problemId}/models",
+    "csplib.problem.models.file": "Problems/prob{problemId}/models/{fileName}",
     "csplib.problem.cite": "Problems/prob{problemId}/cite",
 
     "dokuwiki.login": "doku.php?id=start&do=login",

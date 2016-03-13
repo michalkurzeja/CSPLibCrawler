@@ -8,6 +8,9 @@
             "@file_loader.json"
         ]
     },
+    "http_client": {
+        "class": "Http.HttpClient"
+    },
     "router": {
         "class": "Router.Router",
         "arguments": [
@@ -83,6 +86,12 @@
         "class": "Doku.FileUploader",
         "arguments": [
             "@router"
+        ]
+    },
+    "downloads_manager": {
+        "class": "DownloadsManager.DownloadsManager",
+        "arguments": [
+            "@http_client"
         ]
     }
 }

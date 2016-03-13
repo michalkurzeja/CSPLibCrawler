@@ -7,16 +7,18 @@
 
     function HttpClient() {}
 
-    HttpClient.prototype.get = function(url, cookieJar) {
+    HttpClient.prototype.get = function(url, cookieJar, encoding) {
         cookieJar = cookieJar || Request.jar();
+        encoding = encoding || null;
 
         return new Promise(function(resolve, reject) {
             Request.get(
                 {
                     url: url,
-                    jar: cookieJar
+                    jar: cookieJar,
+                    encoding: encoding
                 },
-                function (error, response, body) {
+                function (error, response) {
                     response.jar = function() {
                         return cookieJar;
                     };
