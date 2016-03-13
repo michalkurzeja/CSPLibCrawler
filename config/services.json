@@ -23,6 +23,18 @@
             "@router"
         ]
     },
+    "data_fetcher.problem_categories": {
+        "class": "DataFetcher.ProblemCategoriesFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
+    "data_fetcher.problem_list": {
+        "class": "DataFetcher.ProblemListFetcher",
+        "arguments": [
+            "@router"
+        ]
+    },
     "data_fetcher.problem": {
         "class": "DataFetcher.ProblemFetcher",
         "arguments": [
@@ -97,11 +109,30 @@
     "content_generator.category": {
         "class": "Doku.ContentGenerator.CategoryContentGenerator"
     },
+    "content_generator.problem": {
+        "class": "Doku.ContentGenerator.ProblemContentGenerator"
+    },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
             "@data_fetcher.category_list",
             "@content_generator.category",
+            "@doku.page_uploader"
+        ]
+    },
+    "publisher.problems": {
+        "class": "Publisher.ProblemsPublisher",
+        "arguments": [
+            "@data_fetcher.problem_list",
+            "@data_fetcher.problem_categories",
+            "@publisher.problem"
+        ]
+    },
+    "publisher.problem": {
+        "class": "Publisher.ProblemPublisher",
+        "arguments": [
+            "@data_fetcher.problem",
+            "@content_generator.problem",
             "@doku.page_uploader"
         ]
     }

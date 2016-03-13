@@ -17,7 +17,7 @@
                     var promises = [];
 
                     for (var i in data) {
-                        var pageId = 'kategoria:' + data[i].name.replace(' ', '-').toLowerCase();
+                        var pageId = 'kategoria:' + data[i].name.replace(/ /g, '-').toLowerCase();
                         var content = scope.generator.generate({data: data[i]});
 
                         promises.push(scope.pageUploader.editPage(pageId, content, cookieJar));

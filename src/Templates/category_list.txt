@@ -7,7 +7,7 @@
 
 Problemy:
 {{ '{{' -}}
-#ask: [[category:problem]] [[nalezyDo::kategoria: {{- data.name | replace(' ', '-') | lower -}} ]] |
+#ask: [[category:problem]] [[nalezyDo::kategoria: {{- data.name | str2doku -}} ]] |
    ?nazwa=Nazwa |
    default=Brak wyników!
 }}

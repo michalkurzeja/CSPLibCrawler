@@ -34,7 +34,17 @@
 
     function getSpecification($) {
         return $('.container').children().not('.page-header, .proposed').map(function(i, element) {
-            return $(element).html();
+            var $element = $(element);
+
+            if ($element.is('pre')) {
+                return $element.html().replace(/\n/g, '\n\t');
+            }
+
+            if ($element.is('ul')) {
+                return $element.html().replace(/<li>/g, '  * ').replace(/<\/li>/g, '');
+            }
+
+            return $element.html();
         }).toArray();
     }
 

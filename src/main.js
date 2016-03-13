@@ -4,6 +4,7 @@ global.app = {};
 global.app.rootDir = require('path').resolve(__dirname);
 
 use('Service.Container');
+use('swig');
 var Promise = use('Bluebird');
 
 module.exports.crawl = function() {
@@ -34,7 +35,7 @@ module.exports.crawl = function() {
         //)
         .then(function(loginResult) {
             var cookieJar = loginResult.response.jar();
-            var publisher = getService('publisher.categories');
+            var publisher = getService('publisher.problems');
 
             return publisher.publish(cookieJar);
         })
@@ -44,6 +45,10 @@ module.exports.crawl = function() {
 function init() {
     global.app.container = new Service.Container();
     getService('config.loader.parameters').load();
+
+    swig.setFilter('str2doku', function(input) {
+        return input.toLowerCase().replace(/ /g, '-');
+    });
 
     return new Promise(function(resolve) {
         resolve();
