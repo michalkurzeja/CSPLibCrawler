@@ -51,8 +51,6 @@
                     data
                 ),
                 function (error, response, body) {
-                    console.log(error);
-
                     response.jar = function() {
                         return cookieJar;
                     };
