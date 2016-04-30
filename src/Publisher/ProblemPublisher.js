@@ -22,7 +22,13 @@
                         data: data
                     });
 
-                    return scope.pageUploader.editPage(pageId, content, cookieJar);
+                    return scope.pageUploader
+                        .editPage(pageId, content, cookieJar)
+                        .then(function() {
+                            return new Promise(function(resolve) {
+                                return resolve(data);
+                            });
+                        });
                 }
             })(this));
     };
