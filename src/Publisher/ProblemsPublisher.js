@@ -24,7 +24,7 @@
                 return function(problemData, problemCategories) {
                     var promises = [];
 
-                    for (var i in problemData.splice(1,1)) {
+                    for (var i in problemData.splice(1,2)) {    // TODO remove splice (it's just for debugging to limit pages)
                         var problemId = problemData[i].problemId;
                         promises.push(scope.publisher.publish(cookieJar, problemId, problemCategories[problemId]));
                     }

@@ -16,14 +16,13 @@
                 return function(data) {
                     data.specification.categories = categories;
 
-                    console.log(data);
-
                     var pageId = 'problem:' + problemId;
                     var content = scope.generator.generate({
+                        id: problemId,
                         data: data
                     });
 
-                    //console.log(content);
+                    //console.log('Publishing problem: ' + problemId);
 
                     return scope.pageUploader.editPage(pageId, content, cookieJar);
                 }

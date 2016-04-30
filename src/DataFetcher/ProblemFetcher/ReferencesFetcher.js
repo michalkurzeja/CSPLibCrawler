@@ -33,7 +33,7 @@
     }
 
     function getReferences($) {
-        return $('.bib').map(function(i, reference) {
+        var refs = $('.bib').map(function(i, reference) {
             var $ref = $(reference);
 
             var links = $ref.find('.links').find('a').map(function(i, anchor) {
@@ -47,14 +47,25 @@
 
             return {
                 bibkey: $ref.find('.bibkey').text().trim(),
-                authors: $ref.find('.authors').text().trim().split(','),
+                authors: getAuthors($ref),
                 title: $ref.find('.title').text().trim(),
+                url: $ref.find('.title').find('a').attr('href'),
                 venueType: $ref.find('.venuetype').text().trim(),
                 venue: $ref.find('.venue').text().trim(),
                 date: $ref.find('.date').text().trim(),
                 links: links
             };
         }).toArray();
+
+        return refs;
+    }
+
+    function getAuthors($ref) {
+        var authors = $ref.find('.authors').text().trim().split(', ');
+
+        authors[authors.length-1] = authors[authors.length-1].replace('and ', '');
+
+        return authors;
     }
 
     Util.inherits(ReferencesFetcher, DataFetcher);

@@ -25,14 +25,44 @@ Proposed by [[
 {{ paragraph | raw }}
 {% endfor %}
 
-====== Wynik  ======
+====== Wyniki  ======
 
-Thinks.com has a list of 9 crossfigure puzzles and solutions online. Warwick Harvey writes that the instances of this problem on Thinks.com‘s website are not particularly interesting from a constraint programming point of view. They are designed to be solvable by humans with no guesswork, without requiring particularly sophisticated reasoning; thus it can be expected that in most modern constraint systems, everything is already ground by the time all the constraints have been added. This means no labelling required, and no search. It should be possible to create more interesting instances of these problems by either using less dense layouts (fewer overlaps between numbers), fewer clues, or less helpful clues (such as inequalities).
+{{ data.results.description }}
+
+{{ '{{' -}}
+#ask: [[category:wynik]] [[jestWynikiem::problem:{{ id }}]] |
+   ?typ=Typ |
+   default=Brak wyników!
+}}
 
 ====== Rozwiązania ======
 
 {{ '{{' -}}
-#ask: [[category:rozwiazanie]] [[jestRozwiazaniem::problem:prob021]] |
+#ask: [[category:rozwiazanie]] [[jestRozwiazaniem::problem:{{ id }}]] |
    ?napisaneW=Język |
    default=Brak wyników!
 }}
+
+====== Źródła ======
+
+{% for reference in data.references.references %}
+//{{ reference.bibkey }}//\\
+{{ reference.authors | join(', ') }}\\
+{% if reference.url -%}
+    **[[{{ reference.url }} | {{ reference.title }}]]**
+{%- else -%}
+    **{{ reference.title }}**
+{%- endif %}\\
+//{{ reference.venueType ? reference.venueType ~ ', ': '' }}{{ reference.venue ? reference.venue ~ ', ' }}//{{ reference.date }}
+{% for link in reference.links -%}
+[[{{ link.url }} | {{ link.label }}]]\\
+{%- endfor %}
+{% endfor %}
+
+====== Cytuj ======
+
+Aby zacytować ten problem użyj poniższego kodu bibtex:
+{{ data.cite.problem }}
+
+Aby zacytować całą blibliotekę CSPLib użyj następującego kodu:
+{{ data.cite.csplib }}

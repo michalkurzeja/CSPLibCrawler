@@ -37,15 +37,52 @@
             var $element = $(element);
 
             if ($element.is('pre')) {
-                return $element.html().replace(/\n/g, '\n\t');
+                return parsePre($element);
             }
 
             if ($element.is('ul')) {
-                return $element.html().replace(/<li>/g, '  * ').replace(/<\/li>/g, '');
+                return parseUl($element);
+            }
+
+            if ($element.is('ol')) {
+                return parseOl($element, $);
+            }
+
+            if ($element.is('table')) {
+                return parseTable($element, $);
             }
 
             return $element.html();
         }).toArray();
+    }
+
+    function parsePre($element) {
+        return $element.html().replace(/\n/g, '\n\t');
+    }
+
+    function parseUl($element) {
+        return $element.html().replace(/<li>/g, '  * ').replace(/<\/li>/g, '');
+    }
+
+    function parseOl($element, $) {
+        $element.find('li').each(function() {
+            $(this).html($(this).html().replace(/\n/g, '').replace(/<\/?p>/g, ''));
+        });
+
+        return $element.html().replace(/<li>/g, '  - ').replace(/<\/li>/g, '');
+    }
+
+    function parseTable($element, $) {
+        var head = $element.find('th').map(function(i, th) { return $(th).text(); }).toArray();
+        var $rows = $element.find('tbody').find('tr');
+
+        var tableString = '^' + head.join('^') + '^\n';
+
+        $rows.each(function() {
+            tableString += '|' + $(this).find('td').map(function(i, td) { return $(td).text(); }).toArray().join('|') + '|\n';
+        });
+
+        return tableString;
     }
 
     Util.inherits(SpecificationFetcher, DataFetcher);

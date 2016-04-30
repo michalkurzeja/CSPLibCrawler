@@ -22,11 +22,15 @@
     };
 
     function getProblemCite($) {
-        return $('pre').first().text().trim();
+        return getCite($('pre').first().text().trim());
     }
 
     function getCspLibCite($) {
-        return $('pre').last().text().trim();
+        return getCite($('pre').last().text().trim());
+    }
+
+    function getCite(text) {
+        return '\n\t' + text.replace(/\n/g, '\n\t');
     }
 
     Util.inherits(CiteFetcher, DataFetcher);
