@@ -4,16 +4,30 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function ReferencesFetcher(router) {
         Object.defineProperty(this, 'router', {value: router});
         DataFetcher.call(this);
     }
 
+    /**
+     * @public
+     * @param {string} problemId
+     * @returns {Promise}
+     */
     ReferencesFetcher.prototype.fetch = function(problemId) {
         var url = this.router.url('%csplib.host%', 'csplib.problem.references', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {object}
+     */
     ReferencesFetcher.prototype.extractData = function($) {
         return {
             bibtex: getBibtex($),
@@ -22,16 +36,31 @@
         };
     };
 
+    /**
+     * @private
+     * @param {Cheerio} $
+     * @returns {string}
+     */
     function getBibtex($) {
         return getParameter('csplib.host') + $('.container').find('p').first().find('a').attr('href');
     }
 
+    /**
+     * @private
+     * @param {Cheerio} $
+     * @returns {string}
+     */
     function getDescription($) {
         return $('.container').children('p').not('.bib').slice(1).map(function(i, paragraph) {
             return $(paragraph).text();
         }).toArray();
     }
 
+    /**
+     * @private
+     * @param {Cheerio} $
+     * @returns {string[]}
+     */
     function getReferences($) {
         var refs = $('.bib').map(function(i, reference) {
             var $ref = $(reference);
@@ -60,6 +89,11 @@
         return refs;
     }
 
+    /**
+     * @private
+     * @param {Cheerio} $ref
+     * @returns {string[]}
+     */
     function getAuthors($ref) {
         var authors = $ref.find('.authors').text().trim().split(', ');
 

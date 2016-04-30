@@ -3,17 +3,73 @@
 
     var Promise = use("Bluebird");
 
+    /**
+     * @constructor
+     * @param {SpecificationFetcher} specificationFetcher
+     * @param {DataFilesFetcher} dataFilesFetcher
+     * @param {ResultsFetcher} resultsFetcher
+     * @param {ReferencesFetcher} referencesFetcher
+     * @param {ModelsFetcher} modelsFetcher
+     * @param {CiteFetcher} citeFetcher
+     */
     function ProblemFetcher(
         specificationFetcher, dataFilesFetcher, resultsFetcher, referencesFetcher, modelsFetcher, citeFetcher
     ) {
-        Object.defineProperty(this, 'specificationFetcher', {value: specificationFetcher});
-        Object.defineProperty(this, 'dataFilesFetcher', {value: dataFilesFetcher});
-        Object.defineProperty(this, 'resultsFetcher', {value: resultsFetcher});
-        Object.defineProperty(this, 'referencesFetcher', {value: referencesFetcher});
-        Object.defineProperty(this, 'modelsFetcher', {value: modelsFetcher});
-        Object.defineProperty(this, 'citeFetcher', {value: citeFetcher});
+
+        /**
+         * @private
+         * @member {SpecificationFetcher} specificationFetcher
+         */
+        Object.defineProperty(this, 'specificationFetcher', {
+            value: specificationFetcher
+        });
+
+        /**
+         * @private
+         * @member {DataFilesFetcher} dataFilesFetcher
+         */
+        Object.defineProperty(this, 'dataFilesFetcher', {
+            value: dataFilesFetcher
+        });
+
+        /**
+         * @private
+         * @member {ResultsFetcher} resultsFetcher
+         */
+        Object.defineProperty(this, 'resultsFetcher', {
+            value: resultsFetcher
+        });
+
+        /**
+         * @private
+         * @member {ReferencesFetcher} referencesFetcher
+         */
+        Object.defineProperty(this, 'referencesFetcher', {
+            value: referencesFetcher
+        });
+
+        /**
+         * @private
+         * @member {ModelsFetcher} modelsFetcher
+         */
+        Object.defineProperty(this, 'modelsFetcher', {
+            value: modelsFetcher
+        });
+
+        /**
+         * @private
+         * @member {CiteFetcher} citeFetcher
+         */
+        Object.defineProperty(this, 'citeFetcher', {
+            value: citeFetcher
+        });
     }
 
+    /**
+     * @public
+     * @param {string} problemId
+     * @returns {Promise}
+     */
     ProblemFetcher.prototype.fetch = function(problemId) {
         var promise = new Promise(function(resolve) {
             var problem = {};
@@ -42,6 +98,12 @@
         ;
     };
 
+    /**
+     * @private
+     * @param {Promise} fetchPromise
+     * @param {string} key
+     * @returns {Function}
+     */
     function fetchPromise(fetchPromise, key) {
         return function(problem) {
             return (fetchPromise)

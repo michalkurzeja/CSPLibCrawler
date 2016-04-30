@@ -8,7 +8,7 @@
 
         /**
          * @private
-         * @var {HttpClient} httpClient
+         * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpClient', {
             value: httpClient
@@ -16,7 +16,7 @@
 
         /**
          * @private
-         * @var {HttpClient} httpClient
+         * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpUploaderFile', {
             value: httpUploaderFile
@@ -24,7 +24,7 @@
 
         /**
          * @private
-         * @var {HttpClient} httpClient
+         * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpUploaderPage', {
             value: httpUploaderPage

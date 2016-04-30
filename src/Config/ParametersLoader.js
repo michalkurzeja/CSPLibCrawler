@@ -3,8 +3,19 @@
 
     const PARAMETERS_PATH = global.app.rootDir + '/../config/params.json';
 
+    /**
+     * @constructor
+     * @param {JsonLoader} jsonLoader
+     */
     function ParametersLoader(jsonLoader) {
-        Object.defineProperty(this, 'jsonLoader', {value: jsonLoader});
+
+        /**
+         * @private
+         * @member {JsonLoader} jsonLoader
+         */
+        Object.defineProperty(this, 'jsonLoader', {
+            value: jsonLoader
+        });
 
         global.getParameter = (function(scope) {
             return function(param) {
@@ -13,6 +24,9 @@
         })(this);
     }
 
+    /**
+     * @public
+     */
     ParametersLoader.prototype.load = function() {
         global.app.params = this.jsonLoader.load(PARAMETERS_PATH);
 

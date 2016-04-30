@@ -3,11 +3,35 @@
 
     var Promise = use('Bluebird');
 
+    /**
+     * @constructor
+     * @param {AuthorContentGenerator} generator
+     * @param {DokuClient} client
+     */
     function AuthorsPublisher(generator, client) {
-        Object.defineProperty(this, 'generator', {value: generator});
-        Object.defineProperty(this, 'client', {value: client});
+
+        /**
+         * @private
+         * @member {AuthorContentGenerator} generator
+         */
+        Object.defineProperty(this, 'generator', {
+            value: generator
+        });
+
+        /**
+         * @private
+         * @member {DokuClient} client
+         */
+        Object.defineProperty(this, 'client', {
+            value: client
+        });
     }
 
+    /**
+     * @public
+     * @param {object} problemsData
+     * @returns {Promise}
+     */
     AuthorsPublisher.prototype.publish = function(problemsData) {
         var authors = extractAuthors(problemsData);
         var promises = [];
@@ -25,9 +49,14 @@
                 return new Promise(function(resolve) {
                     return resolve(problemsData);
                 });
-            });;
+            });
     };
 
+    /**
+     * @private
+     * @param {object} problemsData
+     * @returns {object}
+     */
     function extractAuthors(problemsData) {
         var data = {};
 
@@ -41,6 +70,11 @@
         return data;
     }
 
+    /**
+     * @private
+     * @param {string} author
+     * @returns {string}
+     */
     function getPageId(author) {
         return 'autor:' + author.toLowerCase().replace(/ /g, '-');
     }

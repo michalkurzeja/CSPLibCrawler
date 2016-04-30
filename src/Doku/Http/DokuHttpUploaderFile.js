@@ -7,12 +7,23 @@
 
     /**
      * @constructor
+     * @param {Router} router
+     * @param {DokuHttpClient} dokuHttpClient
      */
     function DokuHttpUploaderFile(router, dokuHttpClient) {
+
+        /**
+         * @private
+         * @member {Router} router
+         */
         Object.defineProperty(this, 'router', {
             value: router
         });
 
+        /**
+         * @private
+         * @member {DokuHttpClient} dokuHttpClient
+         */
         Object.defineProperty(this, 'dokuHttpClient', {
             value: dokuHttpClient
         });
@@ -20,6 +31,8 @@
 
     /**
      * @public
+     * @param {string} fileName
+     * @param {Buffer} fileBinary
      */
     DokuHttpUploaderFile.prototype.editFile = function(fileName, fileBinary) {
         var client = this.dokuHttpClient;
@@ -99,6 +112,8 @@
 
     /**
      * @private
+     * @param {Cheerio} $
+     * @return {object}
      */
     function extractData($) {
         var $form = $('#media__content');

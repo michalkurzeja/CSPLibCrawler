@@ -3,12 +3,43 @@
 
     var Promise = use('Bluebird');
 
+    /**
+     * @constructor
+     * @param fetcher
+     * @param generator
+     * @param client
+     */
     function CategoriesPublisher(fetcher, generator, client) {
-        Object.defineProperty(this, 'fetcher', {value: fetcher});
-        Object.defineProperty(this, 'generator', {value: generator});
-        Object.defineProperty(this, 'client', {value: client});
+
+        /**
+         * @private
+         * @member fetcher
+         */
+        Object.defineProperty(this, 'fetcher', {
+            value: fetcher
+        });
+
+        /**
+         * @private
+         * @member generator
+         */
+        Object.defineProperty(this, 'generator', {
+            value: generator
+        });
+
+        /**
+         * @private
+         * @member client
+         */
+        Object.defineProperty(this, 'client', {
+            value: client
+        });
     }
 
+    /**
+     * @public
+     * @returns {Promise}
+     */
     CategoriesPublisher.prototype.publish = function() {
         return this.fetcher
             .fetch()

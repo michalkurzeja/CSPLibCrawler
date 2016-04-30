@@ -4,17 +4,36 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function CategoryListFetcher(router) {
+
+        /**
+         * @private
+         * @member {string} url
+         */
         Object.defineProperty(this, 'url', {
             value: router.url('%csplib.host%', 'csplib.categories')
         });
+
         DataFetcher.call(this);
     }
 
+    /**
+     * @public
+     * @returns {Promise}
+     */
     CategoryListFetcher.prototype.fetch = function() {
         return DataFetcher.prototype.fetch.call(this, this.url);
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {object}
+     */
     CategoryListFetcher.prototype.extractData = function($) {
         return $('h2.smaller').map(function(i, category) {
             var $category = $(category);

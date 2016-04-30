@@ -3,13 +3,36 @@
 
     var Proxy = require('./Proxy/Proxy.js');
 
+    /**
+     * @constructor
+     * @param {string} url
+     */
     function Autoloader(url) {
         url = require('path').normalize(url);
 
-        Object.defineProperty(this, 'url', { value: url, writable: true });
-        Object.defineProperty(this, 'classes', { value: {}, writable: true });
+        /**
+         * @private
+         * @param {string} url
+         */
+        Object.defineProperty(this, 'url', {
+            value: url,
+            writable: true
+        });
+
+        /**
+         * @private
+         * @param {object} classes
+         */
+        Object.defineProperty(this, 'classes', {
+            value: {},
+            writable: true
+        });
     }
 
+    /**
+     * @public
+     * @param {string} url
+     */
     Autoloader.prototype.init = function(url) {
         global.use = (function(scope) {
             return function(className) {

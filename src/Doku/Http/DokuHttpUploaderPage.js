@@ -6,6 +6,8 @@
 
     /**
      * @constructor
+     * @param {Router} router
+     * @param {DokuHttpClient} dokuHttpClient
      */
     function DokuHttpUploaderPage(router, dokuHttpClient) {
         Object.defineProperty(this, 'router', {
@@ -19,6 +21,9 @@
 
     /**
      * @public
+     * @param {string} id
+     * @param {string} data
+     * @returns {Promise}
      */
     DokuHttpUploaderPage.prototype.editPage = function(id, data) {
         var client = this.dokuHttpClient;
@@ -70,6 +75,8 @@
 
     /**
      * @private
+     * @param {Cheerio} $
+     * @returns {object}
      */
     function extractData($) {
         var $form = $('#dw__editform');

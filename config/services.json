@@ -117,26 +117,26 @@
             "@doku.http.uploader_page"
         ]
     },
-    "downloads_manager": {
-        "class": "DownloadsManager.DownloadsManager",
+    "download_manager": {
+        "class": "Media.DownloadManager",
         "arguments": [
             "@http_client"
         ]
     },
-    "content_generator.category": {
-        "class": "Doku.ContentGenerator.CategoryContentGenerator"
+    "content.generator.category": {
+        "class": "Doku.Content.Generator.CategoryContentGenerator"
     },
-    "content_generator.problem": {
-        "class": "Doku.ContentGenerator.ProblemContentGenerator"
+    "content.generator.problem": {
+        "class": "Doku.Content.Generator.ProblemContentGenerator"
     },
-    "content_generator.author": {
-        "class": "Doku.ContentGenerator.AuthorContentGenerator"
+    "content.generator.author": {
+        "class": "Doku.Content.Generator.AuthorContentGenerator"
     },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
             "@data_fetcher.category_list",
-            "@content_generator.category",
+            "@content.generator.category",
             "@doku.client"
         ]
     },
@@ -152,14 +152,14 @@
         "class": "Publisher.ProblemPublisher",
         "arguments": [
             "@data_fetcher.problem",
-            "@content_generator.problem",
+            "@content.generator.problem",
             "@doku.client"
         ]
     },
     "publisher.authors": {
         "class": "Publisher.AuthorsPublisher",
         "arguments": [
-            "@content_generator.author",
+            "@content.generator.author",
             "@doku.client"
         ]
     }

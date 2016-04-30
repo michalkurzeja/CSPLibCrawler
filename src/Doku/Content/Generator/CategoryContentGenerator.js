@@ -1,14 +1,20 @@
 ;(function() {
     "use strict";
 
-    var ContentGenerator    = use('Doku.ContentGenerator.Abstraction.ContentGenerator');
+    var ContentGenerator    = use('Doku.Content.Generator.Abstraction.ContentGenerator');
     var util                = use('util');
 
-
+    /**
+     * @constructor
+     */
     function CategoryContentGenerator() {
         ContentGenerator.call(this);
     }
 
+    /**
+     * @protected
+     * @returns {string}
+     */
     CategoryContentGenerator.prototype.getDefaultTemplateName = function() {
         return 'category_list.txt.swig';
     };

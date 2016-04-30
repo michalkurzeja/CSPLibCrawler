@@ -5,8 +5,15 @@
 
     const TEMPLATES_DIR = global.app.rootDir + '/../src/Templates';
 
+    /**
+     * @constructor
+     */
     function ContentGenerator() {}
 
+    /**
+     * @public
+     * @param {string[]} options
+     */
     ContentGenerator.prototype.generate = function(options) {
         return this.generateTemplate(
             this.findTemplate(this.getDefaultTemplateName()),
@@ -14,14 +21,29 @@
         );
     };
 
+    /**
+     * @public
+     * @param {string} template
+     * @param {string[]} options
+     * @returns {string}
+     */
     ContentGenerator.prototype.generateTemplate = function(template, options) {
         return swig.renderFile(template, options);
     };
 
-    ContentGenerator.prototype.findTemplate = function(templateName) {
-        return TEMPLATES_DIR + '/' + templateName;
+    /**
+     * @public
+     * @param {string} template
+     * @returns {string}
+     */
+    ContentGenerator.prototype.findTemplate = function(template) {
+        return TEMPLATES_DIR + '/' + template;
     };
 
+    /**
+     * @public
+     * @returns {string}
+     */
     ContentGenerator.prototype.getDefaultTemplateName = function() {
         throw 'This function must be overriden!';
     };

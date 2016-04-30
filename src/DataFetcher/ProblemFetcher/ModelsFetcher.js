@@ -4,18 +4,32 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function ModelsFetcher(router) {
         Object.defineProperty(this, 'router', {value: router});
         Object.defineProperty(this, 'problemId', {value: null, writable: true});
         DataFetcher.call(this);
     }
 
+    /**
+     * @public
+     * @param {string} problemId
+     * @returns {Promise}
+     */
     ModelsFetcher.prototype.fetch = function(problemId) {
         this.problemId = problemId;
         var url = this.router.url('%csplib.host%', 'csplib.problem.models', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {object}
+     */
     ModelsFetcher.prototype.extractData = function($) {
         return {
             files: getFiles.call(this, $),
@@ -23,6 +37,11 @@
         }
     };
 
+    /**
+     * @private
+     * @param {Cheerio} $
+     * @returns {string[]}
+     */
     function getFiles($) {
         var scope = this;
 
@@ -38,10 +57,20 @@
         }).toArray();
     }
 
+    /**
+     * @private
+     * @param {Cheerio} $a
+     * @returns {string}
+     */
     function getFile($a) {
         return this.router.url('%csplib.host%', 'csplib.problem.models.file', {problemId: this.problemId, fileName: $a.text().trim()})
     }
 
+    /**
+     * @private
+     * @param {Cheerio} $
+     * @returns {string}
+     */
     function getDescription($) {
         return $('.container').children('p').not('.bib').map(function(i, paragraph) {
             return $(paragraph).text();

@@ -4,18 +4,32 @@
     var DataFetcher = use('DataFetcher.Abstraction.DataFetcher');
     var Util        = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function DataFilesFetcher(router) {
         Object.defineProperty(this, 'router', {value: router});
         Object.defineProperty(this, 'problemId', {value: null, writable: true});
         DataFetcher.call(this);
     }
 
+    /**
+     * @public
+     * @param {string} problemId
+     * @returns {Promise}
+     */
     DataFilesFetcher.prototype.fetch = function(problemId) {
         this.problemId = problemId;
         var url = this.router.url('%csplib.host%', 'csplib.problem.data_files', {problemId: problemId});
         return DataFetcher.prototype.fetch.call(this, url);
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {object}
+     */
     DataFilesFetcher.prototype.extractData = function($) {
         var scope = this;
 
@@ -31,6 +45,11 @@
         }).toArray();
     };
 
+    /**
+     * @private
+     * @param {Cheerio} $a
+     * @returns {string}
+     */
     function getFile($a) {
         return this.router.url('%csplib.host%', 'csplib.problem.data_files.file', {problemId: this.problemId, fileName: $a.text().trim()})
     }

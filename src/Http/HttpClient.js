@@ -5,8 +5,18 @@
     var Promise = use('Bluebird');
     var Extend  = use('Extend');
 
+    /**
+     * @constructor
+     */
     function HttpClient() {}
 
+    /**
+     * @public
+     * @param {string} url
+     * @param {string[]} data
+     * @param {CookieJar} cookieJar
+     * @returns {Promise}
+     */
     HttpClient.prototype.get = function(url, data, cookieJar) {
         cookieJar = cookieJar || Request.jar();
         data = data || {};
@@ -36,6 +46,13 @@
         });
     };
 
+    /**
+     * @public
+     * @param {string} url
+     * @param {string[]} data
+     * @param {CookieJar} cookieJar
+     * @returns {Promise}
+     */
     HttpClient.prototype.post = function(url, data, cookieJar) {
         cookieJar = cookieJar || Request.jar();
         data = data || {};

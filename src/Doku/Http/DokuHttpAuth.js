@@ -6,12 +6,25 @@
     var Cheerio     = use('Cheerio');
     var Util        = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function DokuHttpAuth(router) {
+
+        /**
+         * @private
+         * @member {string} url
+         */
         Object.defineProperty(this, 'url', {
             value: router.url(getParameter('dokuwiki.host'), 'dokuwiki.login')
         });
     }
 
+    /**
+     * @public
+     * @returns {Promise}
+     */
     DokuHttpAuth.prototype.login = function() {
         var promise = (new HttpClient).get(this.url);
 
@@ -22,6 +35,11 @@
         })(this));
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {Promise}
+     */
     DokuHttpAuth.prototype.extractData = function($) {
         var token = $('.action.login').attr('href').split('sectok=')[1];
 

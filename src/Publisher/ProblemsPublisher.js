@@ -3,12 +3,43 @@
 
     var Promise = use('Bluebird');
 
+    /**
+     * @constructor
+     * @param listFetcher
+     * @param problemCategoriesFetcher
+     * @param publisher
+     */
     function ProblemsPublisher(listFetcher, problemCategoriesFetcher, publisher) {
-        Object.defineProperty(this, 'listFetcher', {value: listFetcher});
-        Object.defineProperty(this, 'problemCategoriesFetcher', {value: problemCategoriesFetcher});
-        Object.defineProperty(this, 'publisher', {value: publisher});
+
+        /**
+         * @private
+         * @member listFetcher
+         */
+        Object.defineProperty(this, 'listFetcher', {
+            value: listFetcher
+        });
+
+        /**
+         * @private
+         * @member problemCategoriesFetcher
+         */
+        Object.defineProperty(this, 'problemCategoriesFetcher', {
+            value: problemCategoriesFetcher
+        });
+
+        /**
+         * @private
+         * @member publisher
+         */
+        Object.defineProperty(this, 'publisher', {
+            value: publisher
+        });
     }
 
+    /**
+     * @public
+     * @returns {Promise}
+     */
     ProblemsPublisher.prototype.publish = function() {
         return this.listFetcher
             .fetch()

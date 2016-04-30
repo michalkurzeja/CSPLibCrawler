@@ -11,7 +11,7 @@
 
         /**
          * @private
-         * @var {HttpClient} httpClient
+         * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpClient', {
             value: httpClient
@@ -19,7 +19,7 @@
 
         /**
          * @private
-         * @var {CookieJar} httpCookieJar
+         * @member {CookieJar} httpCookieJar
          */
         Object.defineProperty(this, 'httpCookieJar', {
             value: null,
@@ -28,7 +28,7 @@
 
         /**
          * @private
-         * @var {DokuHttpAuth} httpAuth
+         * @member {DokuHttpAuth} httpAuth
          */
         Object.defineProperty(this, 'httpAuth', {
             value: dokuHttpAuth

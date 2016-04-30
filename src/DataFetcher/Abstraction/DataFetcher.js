@@ -4,10 +4,25 @@
     var HttpClient  = use('Http.HttpClient');
     var cheerio     = use('Cheerio');
 
+    /**
+     * @constructor
+     */
     function DataFetcher() {
-        Object.defineProperty(this, 'httpClient', {value: new HttpClient()});
+
+        /**
+         * @private
+         * @member {HttpClient} httpClient
+         */
+        Object.defineProperty(this, 'httpClient', {
+            value: new HttpClient()
+        });
     }
 
+    /**
+     * @public
+     * @param {string} url
+     * @returns {Promise}
+     */
     DataFetcher.prototype.fetch = function(url) {
         var promise = this.httpClient.get(url);
 
@@ -19,6 +34,11 @@
         })(this));
     };
 
+    /**
+     * @protected
+     * @param {Cheerio} $
+     * @returns {object}
+     */
     DataFetcher.prototype.extractData = function($) {
         throw 'You can\'t call this method!';
     };

@@ -1,14 +1,20 @@
 ;(function() {
     "use strict";
 
-    var ContentGenerator    = use('Doku.ContentGenerator.Abstraction.ContentGenerator');
+    var ContentGenerator    = use('Doku.Content.Generator.Abstraction.ContentGenerator');
     var util                = use('util');
 
-
+    /**
+     * @constructor
+     */
     function ProblemContentGenerator() {
         ContentGenerator.call(this);
     }
 
+    /**
+     * @protected
+     * @returns {string}
+     */
     ProblemContentGenerator.prototype.getDefaultTemplateName = function() {
         return 'problem.txt.swig';
     };

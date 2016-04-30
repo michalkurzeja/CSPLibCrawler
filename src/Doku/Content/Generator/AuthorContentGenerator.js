@@ -1,19 +1,25 @@
 ;(function() {
     "use strict";
 
-    var ContentGenerator    = use('Doku.ContentGenerator.Abstraction.ContentGenerator');
-    var util                = use('util');
+    var ContentGenerator    = use('Doku.Content.Generator.Abstraction.ContentGenerator');
+    var Util                = use('Util');
 
-
+    /**
+     * @constructor
+     */
     function AuthorContentGenerator() {
         ContentGenerator.call(this);
     }
 
+    /**
+     * @protected
+     * @returns {string}
+     */
     AuthorContentGenerator.prototype.getDefaultTemplateName = function() {
         return 'author.txt.swig';
     };
 
-    util.inherits(AuthorContentGenerator, ContentGenerator);
+    Util.inherits(AuthorContentGenerator, ContentGenerator);
 
     this.AuthorContentGenerator = AuthorContentGenerator;
 }).call(this);

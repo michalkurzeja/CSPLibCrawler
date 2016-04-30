@@ -6,9 +6,26 @@
 
     const SERVICES_PATH = global.app.rootDir + '/../config/services.json';
 
+    /**
+     * @constructor
+     */
     function Container() {
-        Object.defineProperty(this, 'serviceDefinitions', {value: JSON.parse(Fs.readFileSync(SERVICES_PATH, 'utf8'))});
-        Object.defineProperty(this, 'services', {value: {}});
+
+        /**
+         * @private
+         * @member {object} serviceDefinitions
+         */
+        Object.defineProperty(this, 'serviceDefinitions', {
+            value: JSON.parse(Fs.readFileSync(SERVICES_PATH, 'utf8'))
+        });
+
+        /**
+         * @private
+         * @member {object} services
+         */
+        Object.defineProperty(this, 'services', {
+            value: {}
+        });
 
         for (var serviceName in this.serviceDefinitions) {
             resolveDefinition(this.serviceDefinitions[serviceName]);
@@ -21,6 +38,11 @@
         })(this);
     }
 
+    /**
+     * @public
+     * @param {string} serviceName
+     * @returns {object}
+     */
     Container.prototype.get = function(serviceName) {
         guardAgainstUndefinedService.call(this, serviceName);
 
@@ -40,26 +62,50 @@
         return createService.call(this, definition);
     };
 
+    /**
+     * @private
+     * @param {string} serviceName
+     */
     function guardAgainstUndefinedService(serviceName) {
         if (!getServiceDefinition.call(this, serviceName)) {
             throw util.format('Service "%s" is not defined.', serviceName);
         }
     }
 
+    /**
+     * @private
+     * @param {string} serviceName
+     * @returns {object}
+     */
     function getServiceDefinition(serviceName) {
         return this.serviceDefinitions[serviceName];
     }
 
+    /**
+     * @private
+     * @param {string} serviceClass
+     * @returns {object}
+     */
     function getCachedService(serviceClass) {
         return this.services[serviceClass]
             ? this.services[serviceClass]
             : null;
     }
 
+    /**
+     * @private
+     * @param {string} serviceClass
+     * @param {object} service
+     */
     function cacheService(serviceClass, service) {
         this.services[serviceClass] = service;
     }
 
+    /**
+     * @private
+     * @param {object} definition
+     * @returns {object}
+     */
     function createService(definition) {
         var ServiceClass = definition.module
             ? use(definition.class)
@@ -78,6 +124,10 @@
         return new Service(parseArguments.call(this, definition.arguments));
     }
 
+    /**
+     * @private
+     * @param {object} definition
+     */
     function resolveDefinition(definition) {
         if (typeof definition.module === 'undefined') {
             definition.module = true;
@@ -90,6 +140,11 @@
         }
     }
 
+    /**
+     * @private
+     * @param {object[]} args
+     * @returns {object[]}
+     */
     function parseArguments(args) {
         var scope = this;
         var parsedArgs = [];
@@ -106,6 +161,11 @@
         return parsedArgs;
     }
 
+    /**
+     * @private
+     * @param {object} Service
+     * @returns {boolean}
+     */
     function isConstructable(Service) {
         return typeof Service.apply !== 'undefined';
     }

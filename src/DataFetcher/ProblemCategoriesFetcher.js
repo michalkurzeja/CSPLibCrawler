@@ -4,10 +4,18 @@
     var CategoryListFetcher = use('DataFetcher.CategoryListFetcher');
     var Util                = use('Util');
 
+    /**
+     * @constructor
+     * @param {Router} router
+     */
     function ProblemCategoriesFetcher(router) {
         CategoryListFetcher.call(this, router);
     }
 
+    /**
+     * @public
+     * @returns {Promise}
+     */
     ProblemCategoriesFetcher.prototype.fetch = function() {
         return CategoryListFetcher.prototype.fetch.call(this, this.url)
             .then(function(data) {
