@@ -3,21 +3,24 @@
 
     var Request = use('Request');
     var Promise = use('Bluebird');
-    var Merge   = use('Merge');
+    var Extend  = use('Extend');
 
     function HttpClient() {}
 
-    HttpClient.prototype.get = function(url, cookieJar, encoding) {
+    HttpClient.prototype.get = function(url, data, cookieJar) {
         cookieJar = cookieJar || Request.jar();
-        encoding = encoding || null;
+        data = data || {};
 
         return new Promise(function(resolve, reject) {
             Request.get(
-                {
-                    url: url,
-                    jar: cookieJar,
-                    encoding: encoding
-                },
+                Extend(
+                    true,
+                    {
+                        url: url,
+                        jar: cookieJar
+                    },
+                    data
+                ),
                 function (error, response) {
                     response.jar = function() {
                         return cookieJar;
@@ -33,16 +36,23 @@
         });
     };
 
-    HttpClient.prototype.post = function(data, cookieJar) {
+    HttpClient.prototype.post = function(url, data, cookieJar) {
         cookieJar = cookieJar || Request.jar();
+        data = data || {};
 
         return new Promise(function(resolve, reject) {
             Request.post(
-                Merge(
-                    { jar: cookieJar },
+                Extend(
+                    true,
+                    {
+                        url: url,
+                        jar: cookieJar
+                    },
                     data
                 ),
                 function (error, response, body) {
+                    console.log(error);
+
                     response.jar = function() {
                         return cookieJar;
                     };

@@ -18,7 +18,7 @@
      */
     PageUploader.prototype.editPage = function(id, data, cookieJar) {
         var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.page', { pageId: id });
-        var promise = (new HttpClient).get(url, cookieJar);
+        var promise = (new HttpClient).get(url, {}, cookieJar);
 
         return promise
             .then(

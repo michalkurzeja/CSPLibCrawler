@@ -4,6 +4,8 @@
     var HttpClient = use('Http.HttpClient');
     var Cheerio    = use('Cheerio');
     var Fs         = use('Fs');
+    var Needle     = use('Needle');
+    var Promise    = use('Bluebird');
 
     /**
      * @constructor
@@ -19,7 +21,7 @@
      */
     FileUploader.prototype.uploadFile = function(fileName, fileBinary, cookieJar) {
         var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.file');
-        var promise = (new HttpClient).get(url, cookieJar);
+        var promise = (new HttpClient).get(url, {}, cookieJar);
 
         return promise
             .then(
@@ -32,24 +34,51 @@
             )
             .then(
                 function(result) {
-                    return (new HttpClient).post(
-                        {
-                            url: url,
-                            headers: {
-                                'Content-Type': 'application/octet-stream'
-                            },
-                            body: Fs.createReadStream('/home/skie/Desktop/smallHorse4.jpg'),
-                            form: {
-                                call: 'mediaupload',
-                                mediaid: '',
-                                ns: 'problem',
-                                ow: 'checked',
-                                qqfile: fileName,
-                                sectok: result.data.sectok
+                    return new Promise(function(resolve, reject) {
+                        Fs.readFile(
+                            '/home/skie/Desktop/smallHorse/smallHorse.jpg',
+                            'binary',
+                            function (err, data) {
+                                if (err) {
+                                    reject(err);
+                                }
+
+                                (new HttpClient).post(
+                                    url,
+                                    {
+                                        headers: {
+                                            'X-Requested-With': 'XMLHttpRequest',
+                                            'X-File-Name': fileName,
+                                            'Content-Type': 'application/octet-stream',
+                                            'Content-Length': '114220'
+                                            //'Connection': 'keep-alive',
+                                            //'Transfer-Encoding': 'chunked'
+                                        },
+                                        body: data,
+                                        form: {
+                                            tab_files: 'files',
+                                            tab_details: 'view',
+                                            call: 'mediaupload',
+                                            mediaid: '',
+                                            ns: 'problem',
+                                            ow: 'checked',
+                                            qqfile: fileName,
+                                            sectok: result.data.sectok
+                                        }
+                                    },
+                                    result.response.jar()
+                                )
+                                .then(
+                                    function(result) {
+                                        resolve(result);
+                                    },
+                                    function(err) {
+                                        console.log(err);
+                                    }
+                                )
                             }
-                        },
-                        result.response.jar()
-                    );
+                        );
+                    });
                 }
             )
             .then(

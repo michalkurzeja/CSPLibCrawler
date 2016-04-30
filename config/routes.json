@@ -13,5 +13,5 @@
 
     "dokuwiki.login": "doku.php?id=start&do=login",
     "dokuwiki.page": "doku.php?id={pageId}&do=edit",
-    "dokuwiki.file": "lib/exe/mediamanager.php?ns=problem"
+    "dokuwiki.file": "lib/exe/ajax.php"
 }

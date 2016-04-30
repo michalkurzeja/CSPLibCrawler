@@ -19,7 +19,7 @@
     };
 
     DownloadsManager.prototype.download = function(url, encoding) {
-        return this.httpClient.get(url, false, encoding)
+        return this.httpClient.get(url, { encoding: encoding })
             .then((function(scope) {
                 return function(response) {
                     var tmpFile = tmp.fileSync();
