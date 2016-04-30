@@ -22,8 +22,6 @@
                         data: data
                     });
 
-                    //console.log('Publishing problem: ' + problemId);
-
                     return scope.pageUploader.editPage(pageId, content, cookieJar);
                 }
             })(this));

@@ -52,7 +52,7 @@
                 url: $ref.find('.title').find('a').attr('href'),
                 venueType: $ref.find('.venuetype').text().trim(),
                 venue: $ref.find('.venue').text().trim(),
-                date: $ref.find('.date').text().trim(),
+                date: $ref.find('.date').text().trim().replace(/\s+/g, ' '),
                 links: links
             };
         }).toArray();

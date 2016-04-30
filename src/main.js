@@ -46,11 +46,21 @@ function init() {
     global.app.container = new Service.Container();
     getService('config.loader.parameters').load();
 
-    swig.setFilter('str2doku', function(input) {
-        return input.toLowerCase().replace(/ /g, '-');
-    });
+    setSwigFilters();
 
     return new Promise(function(resolve) {
         resolve();
+    });
+}
+
+function setSwigFilters() {
+    swig.setFilter('str2doku', function(input) {
+        return input.toLowerCase().replace(/ /g, '-');
+    });
+    swig.setFilter('wrap_entities', function(input) {
+        return input.replace(/(&.+?;)/g, '<html>$1</html>');
+    });
+    swig.setFilter('concat', function(input, string) {
+        return '' + input + string;
     });
 }

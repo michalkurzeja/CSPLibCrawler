@@ -13,17 +13,13 @@
 
 ====== Opis problemu ======
 
-Proposed by [[
+Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ author | str2doku }}|{{ author }}]] {%- if not loop.last %}, {% endif %}{%- endfor -%}.
 
-{%- for author in data.specification.authors -%}
-    maAutora::autor:{{ author | str2doku }}|{{ author }}
-{%- endfor -%}
-
-]].
-
+<html>
 {% for paragraph in data.specification.specification %}
 {{ paragraph | raw }}
 {% endfor %}
+</html>
 
 ====== Wyniki  ======
 
@@ -43,21 +39,24 @@ Proposed by [[
    default=Brak wyników!
 }}
 
+{% if data.references.references.length %}
 ====== Źródła ======
 
 {% for reference in data.references.references %}
 //{{ reference.bibkey }}//\\
 {{ reference.authors | join(', ') }}\\
 {% if reference.url -%}
-    **[[{{ reference.url }} | {{ reference.title }}]]**
+    **[[{{ reference.url }} | {{ reference.title | wrap_entities | raw }}]]**
 {%- else -%}
-    **{{ reference.title }}**
+    **{{ reference.title | wrap_entities | raw }}**
 {%- endif %}\\
-//{{ reference.venueType ? reference.venueType ~ ', ': '' }}{{ reference.venue ? reference.venue ~ ', ' }}//{{ reference.date }}
+{% if reference.venueType %}{{ reference.venueType | concat(', ') }}{% endif %}{% if reference.venue %}{{ reference.venue | concat(', ') }}{% endif %}{{ reference.date }}
 {% for link in reference.links -%}
 [[{{ link.url }} | {{ link.label }}]]\\
 {%- endfor %}
 {% endfor %}
+
+{% endif %}
 
 ====== Cytuj ======
 
