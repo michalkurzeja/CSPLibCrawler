@@ -1,27 +1,30 @@
 ;(function() {
     'use strict';
 
-    var HttpClient = use('Http.HttpClient');
     var Cheerio    = use('Cheerio');
     var Fs         = use('Fs');
-    var Needle     = use('Needle');
     var Promise    = use('Bluebird');
 
     /**
      * @constructor
      */
-    function DokuHttpUploaderFile(router) {
+    function DokuHttpUploaderFile(router, dokuHttpClient) {
         Object.defineProperty(this, 'router', {
             value: router
+        });
+
+        Object.defineProperty(this, 'dokuHttpClient', {
+            value: dokuHttpClient
         });
     }
 
     /**
      * @public
      */
-    DokuHttpUploaderFile.prototype.editFile = function(fileName, fileBinary, cookieJar) {
+    DokuHttpUploaderFile.prototype.editFile = function(fileName, fileBinary) {
+        var client = this.dokuHttpClient;
         var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.file');
-        var promise = (new HttpClient).get(url, {}, cookieJar);
+        var promise = this.dokuHttpClient.get(url);
 
         return promise
             .then(
@@ -43,7 +46,7 @@
                                     reject(err);
                                 }
 
-                                (new HttpClient).post(
+                                client.post(
                                     url,
                                     {
                                         headers: {

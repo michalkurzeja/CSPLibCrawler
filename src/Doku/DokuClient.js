@@ -1,10 +1,6 @@
 ;(function() {
     'use strict';
 
-    var DokuHttpClient       = use('Doku.Http.DokuHttpClient');
-    var DokuHttpUploaderFile = use('Doku.Http.DokuHttpUploaderFile');
-    var DokuHttpUploaderPage = use('Doku.Http.DokuHttpUploaderPage');
-
     /**
      * @constructor
      */

@@ -91,13 +91,15 @@
     "doku.http.uploader_page": {
         "class": "Doku.Http.DokuHttpUploaderPage",
         "arguments": [
-            "@router"
+            "@router",
+            "@doku.http.client"
         ]
     },
     "doku.http.uploader_file": {
         "class": "Doku.Http.DokuHttpUploaderFile",
         "arguments": [
-            "@router"
+            "@router",
+            "@doku.http.client"
         ]
     },
     "doku.http.client": {
