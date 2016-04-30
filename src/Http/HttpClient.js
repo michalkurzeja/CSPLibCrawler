@@ -32,15 +32,19 @@
                     data
                 ),
                 function (error, response) {
+                    if (response === undefined) {
+                        return reject('Received invalid HttpResponse from [' + url + ']');
+                    }
+
                     response.jar = function() {
                         return cookieJar;
                     };
 
                     if (!error) {
-                        resolve(response);
+                        return resolve(response);
                     }
 
-                    reject('Received error on [GET] ' + url);
+                    return reject('Received error on [GET] ' + url);
                 }
             );
         });
@@ -67,16 +71,20 @@
                     },
                     data
                 ),
-                function (error, response, body) {
+                function (error, response) {
+                    if (response === undefined) {
+                        return reject('Received invalid HttpResponse from [' + url + ']');
+                    }
+
                     response.jar = function() {
                         return cookieJar;
                     };
 
                     if (!error) {
-                        resolve(response);
+                        return resolve(response);
                     }
 
-                    reject('Received error on [POST] ' + data.url);
+                    return reject('Received error on [POST] ' + data.url);
                 }
             );
         });

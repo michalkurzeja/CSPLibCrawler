@@ -56,7 +56,7 @@
                             'binary',
                             function (err, data) {
                                 if (err) {
-                                    reject(err);
+                                    return reject(err);
                                 }
 
                                 client.post(
