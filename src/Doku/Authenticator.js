@@ -31,7 +31,7 @@
             sectok: token
         };
 
-        var promise = (new HttpClient).post({ url: this.url, form: form });
+        var promise = (new HttpClient).post(this.url, { form: form });
 
         return promise.then((function(context) {
             return function(response) {

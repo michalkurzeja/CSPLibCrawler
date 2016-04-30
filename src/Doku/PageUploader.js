@@ -32,8 +32,8 @@
             .then(
                 function(result) {
                     return (new HttpClient).post(
+                        url,
                         {
-                            url: url,
                             form: {
                                 changecheck: result.data.changecheck,
                                 date: Math.floor((new Date()).getTime() / 1e3),
