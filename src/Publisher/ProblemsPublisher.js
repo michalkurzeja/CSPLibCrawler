@@ -26,7 +26,7 @@
 
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
-                        if (problemId != 'prob001') continue; // TODO remove (it's just for debugging to limit pages)
+                        //if (problemId != 'prob001') continue; // TODO remove (it's just for debugging to limit pages)
                         promises.push(scope.publisher.publish(cookieJar, problemId, problemCategories[problemId]));
                     }
 

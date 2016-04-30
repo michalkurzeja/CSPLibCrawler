@@ -112,6 +112,9 @@
     "content_generator.problem": {
         "class": "Doku.ContentGenerator.ProblemContentGenerator"
     },
+    "content_generator.author": {
+        "class": "Doku.ContentGenerator.AuthorContentGenerator"
+    },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
@@ -133,6 +136,13 @@
         "arguments": [
             "@data_fetcher.problem",
             "@content_generator.problem",
+            "@doku.page_uploader"
+        ]
+    },
+    "publisher.authors": {
+        "class": "Publisher.AuthorsPublisher",
+        "arguments": [
+            "@content_generator.author",
             "@doku.page_uploader"
         ]
     }

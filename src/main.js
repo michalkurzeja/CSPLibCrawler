@@ -35,9 +35,22 @@ module.exports.crawl = function() {
         //)
         .then(function(loginResult) {
             var cookieJar = loginResult.response.jar();
-            var publisher = getService('publisher.problems');
+            var categoriesPublisher = getService('publisher.categories');
 
-            return publisher.publish(cookieJar);
+            return categoriesPublisher
+                .publish(cookieJar)
+                .then(function() {
+                    var problemsPublisher = getService('publisher.problems');
+                    return problemsPublisher.publish(cookieJar);
+                })
+                .then(function(problems) {
+                    var authorsPublisher = getService('publisher.authors');
+                    return authorsPublisher.publish(cookieJar, problems);
+                })
+                .then(function(problems) {
+                    // Here add other publishers...
+                    return problems;
+                });
         })
     ;
 };

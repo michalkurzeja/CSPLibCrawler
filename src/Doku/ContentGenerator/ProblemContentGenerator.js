@@ -10,7 +10,7 @@
     }
 
     ProblemContentGenerator.prototype.getDefaultTemplateName = function() {
-        return 'problem.txt';
+        return 'problem.txt.swig';
     };
 
     util.inherits(ProblemContentGenerator, ContentGenerator);

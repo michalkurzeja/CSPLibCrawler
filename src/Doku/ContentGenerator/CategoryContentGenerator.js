@@ -10,7 +10,7 @@
     }
 
     CategoryContentGenerator.prototype.getDefaultTemplateName = function() {
-        return 'category_list.txt';
+        return 'category_list.txt.swig';
     };
 
     util.inherits(CategoryContentGenerator, ContentGenerator);
