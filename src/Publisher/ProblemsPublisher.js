@@ -9,7 +9,7 @@
         Object.defineProperty(this, 'publisher', {value: publisher});
     }
 
-    ProblemsPublisher.prototype.publish = function(cookieJar) {
+    ProblemsPublisher.prototype.publish = function() {
         return this.listFetcher
             .fetch()
             .then((function(scope) {
@@ -27,7 +27,7 @@
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
                         //if (problemId != 'prob001') continue; // TODO remove (it's just for debugging to limit pages)
-                        promises.push(scope.publisher.publish(cookieJar, problemId, problemCategories[problemId]));
+                        promises.push(scope.publisher.publish(problemId, problemCategories[problemId]));
                     }
 
                     return Promise.all(promises);

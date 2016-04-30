@@ -82,22 +82,37 @@
             "@router"
         ]
     },
-    "doku.authenticator": {
-        "class": "Doku.Authenticator",
+    "doku.http.auth": {
+        "class": "Doku.Http.DokuHttpAuth",
         "arguments": [
             "@router"
         ]
     },
-    "doku.page_uploader": {
-        "class": "Doku.PageUploader",
+    "doku.http.uploader_page": {
+        "class": "Doku.Http.DokuHttpUploaderPage",
         "arguments": [
             "@router"
         ]
     },
-    "doku.file_uploader": {
-        "class": "Doku.FileUploader",
+    "doku.http.uploader_file": {
+        "class": "Doku.Http.DokuHttpUploaderFile",
         "arguments": [
             "@router"
+        ]
+    },
+    "doku.http.client": {
+        "class": "Doku.Http.DokuHttpClient",
+        "arguments": [
+            "@http_client",
+            "@doku.http.auth"
+        ]
+    },
+    "doku.client": {
+        "class": "Doku.DokuClient",
+        "arguments": [
+            "@doku.http.client",
+            "@doku.http.uploader_file",
+            "@doku.http.uploader_page"
         ]
     },
     "downloads_manager": {
@@ -120,7 +135,7 @@
         "arguments": [
             "@data_fetcher.category_list",
             "@content_generator.category",
-            "@doku.page_uploader"
+            "@doku.client"
         ]
     },
     "publisher.problems": {
@@ -136,14 +151,14 @@
         "arguments": [
             "@data_fetcher.problem",
             "@content_generator.problem",
-            "@doku.page_uploader"
+            "@doku.client"
         ]
     },
     "publisher.authors": {
         "class": "Publisher.AuthorsPublisher",
         "arguments": [
             "@content_generator.author",
-            "@doku.page_uploader"
+            "@doku.client"
         ]
     }
 }

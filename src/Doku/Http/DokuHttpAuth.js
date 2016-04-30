@@ -6,13 +6,13 @@
     var Cheerio     = use('Cheerio');
     var Util        = use('Util');
 
-    function Authenticator(router) {
+    function DokuHttpAuth(router) {
         Object.defineProperty(this, 'url', {
             value: router.url(getParameter('dokuwiki.host'), 'dokuwiki.login')
         });
     }
 
-    Authenticator.prototype.login = function() {
+    DokuHttpAuth.prototype.login = function() {
         var promise = (new HttpClient).get(this.url);
 
         return promise.then((function(context) {
@@ -22,7 +22,7 @@
         })(this));
     };
 
-    Authenticator.prototype.extractData = function($) {
+    DokuHttpAuth.prototype.extractData = function($) {
         var token = $('.action.login').attr('href').split('sectok=')[1];
 
         var form = {
@@ -43,7 +43,7 @@
         })(this));
     };
 
-    this.Authenticator = Authenticator;
+    this.DokuHttpAuth = DokuHttpAuth;
 }).call(this);
 
-module.exports = this.Authenticator;
+module.exports = this.DokuHttpAuth;

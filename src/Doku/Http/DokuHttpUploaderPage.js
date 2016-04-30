@@ -7,7 +7,7 @@
     /**
      * @constructor
      */
-    function PageUploader(router) {
+    function DokuHttpUploaderPage(router) {
         Object.defineProperty(this, 'router', {
             value: router
         });
@@ -16,7 +16,7 @@
     /**
      * @public
      */
-    PageUploader.prototype.editPage = function(id, data, cookieJar) {
+    DokuHttpUploaderPage.prototype.editPage = function(id, data, cookieJar) {
         var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.page', { pageId: id });
         var promise = (new HttpClient).get(url, {}, cookieJar);
 
@@ -75,7 +75,7 @@
         };
     }
 
-    this.PageUploader = PageUploader;
+    this.DokuHttpUploaderPage = DokuHttpUploaderPage;
 }).call(this);
 
-module.exports = this.PageUploader;
+module.exports = this.DokuHttpUploaderPage;

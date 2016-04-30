@@ -10,7 +10,7 @@
     /**
      * @constructor
      */
-    function FileUploader(router) {
+    function DokuHttpUploaderFile(router) {
         Object.defineProperty(this, 'router', {
             value: router
         });
@@ -19,7 +19,7 @@
     /**
      * @public
      */
-    FileUploader.prototype.uploadFile = function(fileName, fileBinary, cookieJar) {
+    DokuHttpUploaderFile.prototype.editFile = function(fileName, fileBinary, cookieJar) {
         var url = this.router.url(getParameter('dokuwiki.host'), 'dokuwiki.file');
         var promise = (new HttpClient).get(url, {}, cookieJar);
 
@@ -105,7 +105,7 @@
         };
     }
 
-    this.FileUploader = FileUploader;
+    this.DokuHttpUploaderFile = DokuHttpUploaderFile;
 }).call(this);
 
-module.exports = this.FileUploader;
+module.exports = this.DokuHttpUploaderFile;

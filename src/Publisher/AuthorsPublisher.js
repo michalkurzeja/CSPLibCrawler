@@ -3,12 +3,12 @@
 
     var Promise = use('Bluebird');
 
-    function AuthorsPublisher(generator, pageUploader) {
+    function AuthorsPublisher(generator, client) {
         Object.defineProperty(this, 'generator', {value: generator});
-        Object.defineProperty(this, 'pageUploader', {value: pageUploader});
+        Object.defineProperty(this, 'client', {value: client});
     }
 
-    AuthorsPublisher.prototype.publish = function(cookieJar, problemsData) {
+    AuthorsPublisher.prototype.publish = function(problemsData) {
         var authors = extractAuthors(problemsData);
         var promises = [];
 
@@ -16,7 +16,7 @@
             var author = authors[i];
             var content = this.generator.generate({author: author});
 
-            promises.push(this.pageUploader.editPage(getPageId(author), content, cookieJar));
+            promises.push(this.client.editPage(getPageId(author), content));
         }
 
         return Promise

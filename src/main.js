@@ -11,7 +11,7 @@ module.exports.crawl = function() {
     init()
         .then(
             function() {
-                return getService('doku.authenticator').login()
+                return getService('doku.client').login()
             }
         )
         .then(
@@ -33,19 +33,18 @@ module.exports.crawl = function() {
         //        return getService('doku.file_uploader').uploadFile('smallHorseA.jpg', {}, result.response.jar());
         //    }
         //)
-        .then(function(loginResult) {
-            var cookieJar = loginResult.response.jar();
+        .then(function() {
             var categoriesPublisher = getService('publisher.categories');
 
             return categoriesPublisher
-                .publish(cookieJar)
+                .publish()
                 .then(function() {
                     var problemsPublisher = getService('publisher.problems');
-                    return problemsPublisher.publish(cookieJar);
+                    return problemsPublisher.publish();
                 })
                 .then(function(problems) {
                     var authorsPublisher = getService('publisher.authors');
-                    return authorsPublisher.publish(cookieJar, problems);
+                    return authorsPublisher.publish(problems);
                 })
                 .then(function(problems) {
                     // Here add other publishers...

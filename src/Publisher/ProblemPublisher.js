@@ -3,13 +3,13 @@
 
     var Promise = use('Bluebird');
 
-    function ProblemPublisher(fetcher, generator, pageUploader) {
+    function ProblemPublisher(fetcher, generator, client) {
         Object.defineProperty(this, 'fetcher', {value: fetcher});
         Object.defineProperty(this, 'generator', {value: generator});
-        Object.defineProperty(this, 'pageUploader', {value: pageUploader});
+        Object.defineProperty(this, 'client', {value: client});
     }
 
-    ProblemPublisher.prototype.publish = function(cookieJar, problemId, categories) {
+    ProblemPublisher.prototype.publish = function(problemId, categories) {
         return this.fetcher
             .fetch(problemId)
             .then((function(scope) {
@@ -22,8 +22,8 @@
                         data: data
                     });
 
-                    return scope.pageUploader
-                        .editPage(pageId, content, cookieJar)
+                    return scope.client
+                        .editPage(pageId, content)
                         .then(function() {
                             return new Promise(function(resolve) {
                                 return resolve(data);
