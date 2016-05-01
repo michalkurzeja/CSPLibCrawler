@@ -46,15 +46,31 @@
             .then((function(scope) {
                 return function(data) {
                     var promises = [];
+                    var completed = 0;
+                    var totalLength = data.length;
+
+                    process.stdout.write('Categories: 0%\r');
 
                     for (var i in data) {
                         var pageId = 'kategoria:' + data[i].name.replace(/ /g, '-').toLowerCase();
                         var content = scope.generator.generate({data: data[i]});
 
-                        promises.push(scope.client.editPage(pageId, content));
+                        var promise = scope.client
+                            .editPage(pageId, content)
+                            .then(function(data) {
+                                process.stdout.write('Categories: ' + Math.round((++completed / totalLength) * 100) + '%\r');
+                                return data;
+                            });
+
+                        promises.push(promise);
                     }
 
-                    return Promise.all(promises);
+                    return Promise
+                        .all(promises)
+                        .then(function(data) {
+                            process.stdout.write('\n');
+                            return data;
+                        });
                 }
             })(this));
     };

@@ -35,16 +35,31 @@
     AuthorsPublisher.prototype.publish = function(problemsData) {
         var authors = extractAuthors(problemsData);
         var promises = [];
+        var completed = 0;
+        var totalSize = Object.keys(authors).length;
+
+        process.stdout.write('Authors: 0%\r');
 
         for (var i in authors) {
             var author = authors[i];
             var content = this.generator.generate({author: author});
 
-            promises.push(this.client.editPage(getPageId(author), content));
+            var promise = this.client
+                .editPage(getPageId(author), content)
+                .then(function(data) {
+                    process.stdout.write('Authors: ' + Math.round((++completed / totalSize) * 100) + '%\r');
+                    return data;
+                });
+
+            promises.push(promise);
         }
 
         return Promise
             .all(promises)
+            .then(function(data) {
+                process.stdout.write('\n');
+                return data;
+            })
             .then(function() {
                 return new Promise(function(resolve) {
                     return resolve(problemsData);

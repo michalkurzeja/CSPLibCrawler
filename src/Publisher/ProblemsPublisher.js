@@ -54,14 +54,30 @@
             .spread((function(scope) {
                 return function(problemData, problemCategories) {
                     var promises = [];
+                    var completed = 0;
+
+                    process.stdout.write('Problems: 0%\r');
+
 
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
-                        if (problemId != 'prob023') continue; // TODO remove (it's just for debugging to limit pages)
-                        promises.push(scope.publisher.publish(problemId, problemCategories[problemId]));
+                        
+                        var promise = scope.publisher
+                            .publish(problemId, problemCategories[problemId])
+                            .then(function(data) {
+                                process.stdout.write('Problems: ' + Math.round((++completed / problemData.length) * 100) + '%\r');
+                                return data;
+                            });
+
+                        promises.push(promise);
                     }
 
-                    return Promise.all(promises);
+                    return Promise
+                        .all(promises)
+                        .then(function(data) {
+                            process.stdout.write('\n');
+                            return data;
+                        });
                 }
             })(this));
     };

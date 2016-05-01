@@ -34,6 +34,10 @@
      */
     ModelsPublisher.prototype.publish = function(problemsData) {
         var promises = [];
+        var completed = 0;
+        var totalSize = getTotalSize(problemsData);
+
+        process.stdout.write('Models: 0%\r');
 
         for (var i in problemsData) {
             var models = problemsData[i].models;
@@ -52,18 +56,39 @@
 
                 var pageId = getPageId(problemId, modelFile);
 
-                promises.push(this.client.editPage(pageId, content));
+                var promise = this.client
+                    .editPage(pageId, content)
+                    .then(function (data) {
+                        process.stdout.write('Models: ' + Math.round((++completed / totalSize) * 100) + '%\r');
+                        return data;
+                    });
+
+                promises.push(promise);
             }
         }
 
         return Promise
             .all(promises)
+            .then(function(data) {
+                process.stdout.write('\n');
+                return data;
+            })
             .then(function() {
                 return new Promise(function(resolve) {
                     return resolve(problemsData);
                 });
             });
     };
+
+    function getTotalSize(problemsData) {
+        var size = 0;
+
+        for (var i in problemsData) {
+            size += problemsData[i].models.files.length;
+        }
+
+        return size;
+    }
 
     /**
      * @private
