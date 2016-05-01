@@ -9,8 +9,24 @@
      * @param {Router} router
      */
     function DataFilesFetcher(router) {
-        Object.defineProperty(this, 'router', {value: router});
-        Object.defineProperty(this, 'problemId', {value: null, writable: true});
+
+        /**
+         * @private
+         * @member {Router} router
+         */
+        Object.defineProperty(this, 'router', {
+            value: router
+        });
+
+        /**
+         * @private
+         * @member {string} problemId
+         */
+        Object.defineProperty(this, 'problemId', {
+            value: null,
+            writable: true
+        });
+
         DataFetcher.call(this);
     }
 

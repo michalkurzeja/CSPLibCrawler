@@ -135,6 +135,9 @@
     "content.generator.result": {
         "class": "Doku.Content.Generator.ResultContentGenerator"
     },
+    "content.generator.data_file": {
+        "class": "Doku.Content.Generator.DataFileContentGenerator"
+    },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
