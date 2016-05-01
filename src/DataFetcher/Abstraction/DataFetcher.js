@@ -78,6 +78,7 @@
         }
         else if (typeof(obj) == 'string' || obj instanceof String) {
             obj = obj
+                .replace(/\<img alt=\"(.*?)\" src=\"(.*?)\">/gi, '<img alt="$1" src="' + base + '/' + path + '/$2">')
                 .replace(/\<a href=\"\/(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/$1">$2</a>')
                 .replace(/\<a href=\"(([\.]{1,2}\/)+?)(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/' + path + '/$2$3">$4</a>')
             ;
