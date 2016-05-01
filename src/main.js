@@ -61,7 +61,7 @@ function init() {
 
 function setSwigFilters() {
     swig.setFilter('str2doku', function(input) {
-        return input.toLowerCase().replace(/ /g, '-');
+        return input.trim().toLowerCase().replace(/ /g, '-');
     });
     swig.setFilter('wrap_entities', function(input) {
         return input.replace(/(&.+?;)/g, '<html>$1</html>');
