@@ -172,5 +172,12 @@
             "@content.generator.result",
             "@doku.client"
         ]
+    },
+    "publisher.data_files": {
+        "class": "Publisher.DataFilesPublisher",
+        "arguments": [
+            "@content.generator.data_file",
+            "@doku.client"
+        ]
     }
 }

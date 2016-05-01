@@ -38,9 +38,9 @@ module.exports.crawl = function() {
                     return getService('publisher.results').publish(problems);
                 })
                 .then(function(problems) {
-                    // Here add other publishers...
-                    return problems;
-                });
+                    return getService('publisher.data_files').publish(problems);
+                })
+            ;
         })
     ;
 };
