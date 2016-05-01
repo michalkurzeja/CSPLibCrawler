@@ -72,7 +72,9 @@
      */
     ProblemFetcher.prototype.fetch = function(problemId) {
         var promise = new Promise(function(resolve) {
-            var problem = {};
+            var problem = {
+                id: problemId
+            };
             return resolve(problem);
         });
 

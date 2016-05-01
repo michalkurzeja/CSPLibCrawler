@@ -5,14 +5,14 @@
 
     /**
      * @constructor
-     * @param {AuthorContentGenerator} generator
+     * @param {ResultContentGenerator} generator
      * @param {DokuClient} client
      */
     function ResultsPublisher(generator, client) {
 
         /**
          * @private
-         * @member {AuthorContentGenerator} generator
+         * @member {ResultContentGenerator} generator
          */
         Object.defineProperty(this, 'generator', {
             value: generator
@@ -38,11 +38,14 @@
         for (var i in problemsData) {
             var problemResults = problemsData[i].results;
 
-            for (var j in problemResults) {
-                var result = problemResults[j];
+            for (var j in problemResults.files) {
+                var problemId = problemsData[i].id;
+
+                var result = problemResults.files[j];
                 var content = this.generator.generate({result: result});
 
-                promises.push(this.client.editPage(getPageId(result), content));
+                var pageId = getPageId(result.filename, problemId);
+                promises.push(this.client.editPage(pageId, content));
             }
         }
 
@@ -57,11 +60,12 @@
 
     /**
      * @private
-     * @param {object} result
+     * @param {string} filename
+     * @param {string} problem
      * @returns {string}
      */
-    function getPageId(result) {
-        return 'wynik:' + result.filename.toLowerCase().replace(/ /g, '-');
+    function getPageId(filename, problem) {
+        return 'rozwiazanie:' + problem + ':' + filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ResultsPublisher = ResultsPublisher;
