@@ -29,7 +29,8 @@
         return promise.then((function(context) {
             return function(result) {
                 var $ = cheerio.load(result.body);
-                return context.extractData($);
+                var obj = context.extractData($);
+                return mutateData(obj, url);
             };
         })(this));
     };
@@ -41,6 +42,66 @@
      */
     DataFetcher.prototype.extractData = function($) {
         throw 'You can\'t call this method!';
+    };
+
+    /**
+     * @private
+     * @param {*} obj
+     * @param {string} url
+     * @returns {*}
+     */
+    function mutateData(obj, url) {
+        var base;
+        var path;
+
+        url = url.replace('http://', '');
+        url = url.split('/');
+
+        base = 'http://' + url.shift();
+        path = url.join('/');
+
+        return mutateElement(obj, base, path);
+    }
+
+    /**
+     * @private
+     * @param {*} obj
+     * @param {string} base
+     * @param {path} path
+     * @returns {*}
+     */
+    function mutateElement(obj, base, path) {
+        if (isArray(obj) || isObject(obj)) {
+            for (var i in obj) {
+                obj[i] = mutateElement(obj[i], base, path);
+            }
+        }
+        else if (typeof(obj) == 'string' || obj instanceof String) {
+            obj = obj
+                .replace(/\<a href=\"\/(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/$1">$2</a>')
+                .replace(/\<a href=\"(([\.]{1,2}\/)+?)(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/' + path + '/$2$3">$4</a>')
+            ;
+        }
+
+        return obj;
+    }
+
+    /**
+     * @private
+     * @param {*} a
+     * @returns {boolean}
+     */
+    function isArray(a) {
+        return (!!a) && (a.constructor === Array);
+    }
+
+    /**
+     * @private
+     * @param {*} a
+     * @returns {boolean}
+     */
+    function isObject(a) {
+        return (!!a) && (a.constructor === Object);
     };
 
     this.DataFetcher = DataFetcher;
