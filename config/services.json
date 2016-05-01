@@ -55,13 +55,15 @@
     "data_fetcher.problem.data_files": {
         "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
         "arguments": [
-            "@router"
+            "@router",
+          "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.results": {
         "class": "DataFetcher.ProblemFetcher.ResultsFetcher",
         "arguments": [
-            "@router"
+            "@router",
+          "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.references": {
@@ -73,7 +75,8 @@
     "data_fetcher.problem.models": {
         "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
         "arguments": [
-            "@router"
+            "@router",
+            "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.cite": {
@@ -81,6 +84,9 @@
         "arguments": [
             "@router"
         ]
+    },
+    "data_fetcher.problem.util.description_extractor": {
+      "class": "DataFetcher.ProblemFetcher.Util.DescriptionExtractor"
     },
     "doku.http.auth": {
         "class": "Doku.Http.DokuHttpAuth",

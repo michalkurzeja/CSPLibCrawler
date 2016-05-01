@@ -23,10 +23,16 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 
 ====== Dane ======
 
+<html>
+{% for paragraph in data.dataFiles.description %}
+{{ paragraph | raw }}
+{% endfor %}
+</html>
+
 {{ '{{' -}}
 #ask: [[category:dane]] [[jestDana::problem:{{ id }}]] |
    ?typ=Typ |
-   default=Brak danych!
+   default=Brak plików z danymi!
 }}
 
 ====== Wyniki  ======
@@ -44,6 +50,12 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 }}
 
 ====== Rozwiązania ======
+
+<html>
+{% for paragraph in data.models.description %}
+{{ paragraph | raw }}
+{% endfor %}
+</html>
 
 {{ '{{' -}}
 #ask: [[category:rozwiazanie]] [[jestRozwiazaniem::problem:{{ id }}]] |

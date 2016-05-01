@@ -7,8 +7,9 @@
     /**
      * @constructor
      * @param {Router} router
+     * @param {DescriptionExtractor} descriptionExtractor
      */
-    function DataFilesFetcher(router) {
+    function DataFilesFetcher(router, descriptionExtractor) {
 
         /**
          * @private
@@ -16,6 +17,14 @@
          */
         Object.defineProperty(this, 'router', {
             value: router
+        });
+
+        /**
+         * @private
+         * @member {DescriptionExtractor} descriptionExtractor
+         */
+        Object.defineProperty(this, 'descriptionExtractor', {
+            value: descriptionExtractor
         });
 
         /**
@@ -47,6 +56,13 @@
      * @returns {object}
      */
     DataFilesFetcher.prototype.extractData = function($) {
+        return {
+            files: getFiles.call(this, $),
+            description: this.descriptionExtractor.extract($, $('.container'))
+        };
+    };
+
+    function getFiles($) {
         var scope = this;
 
         return $('table.tablesorter > tbody').find('tr').map(function(i, dataFile) {
@@ -59,7 +75,7 @@
                 file: getFile.call(scope, $td.first().children('a'))
             };
         }).toArray();
-    };
+    }
 
     /**
      * @private

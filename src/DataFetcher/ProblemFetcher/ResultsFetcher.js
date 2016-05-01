@@ -7,9 +7,11 @@
     /**
      * @constructor
      * @param {Router} router
+     * @param {DescriptionExtractor} descriptionExtractor
      */
-    function ResultsFetcher(router) {
+    function ResultsFetcher(router, descriptionExtractor) {
         Object.defineProperty(this, 'router', {value: router});
+        Object.defineProperty(this, 'descriptionExtractor', {value: descriptionExtractor});
         Object.defineProperty(this, 'problemId', {value: null, writable: true});
         DataFetcher.call(this);
     }
@@ -31,10 +33,9 @@
      * @returns {object}
      */
     ResultsFetcher.prototype.extractData = function($) {
-        var desc = getDescription($);
         return {
             files: getFiles.call(this, $),
-            description: desc
+            description: this.descriptionExtractor.extract($, $('.container'))
         }
     };
 
@@ -60,17 +61,6 @@
      */
     function getFile($a) {
         return this.router.url('%csplib.host%', 'csplib.problem.results.file', {problemId: this.problemId, fileName: $a.text().trim()})
-    }
-
-    /**
-     * @private
-     * @param {Cheerio} $
-     * @returns {string[]}
-     */
-    function getDescription($) {
-        return $('.container').children().not('.bib').not('table').not('.page-header').map(function(i, paragraph) {
-            return $(paragraph).wrap('<div></div>').parent().html();
-        }).toArray()
     }
 
     Util.inherits(ResultsFetcher, DataFetcher);

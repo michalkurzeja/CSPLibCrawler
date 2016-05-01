@@ -38,9 +38,9 @@
         for (var i in problemsData) {
             var dataFiles = problemsData[i].dataFiles;
 
-            for (var j in dataFiles) {
+            for (var j in dataFiles.files) {
                 var problemId = problemsData[i].id;
-                var dataFile = dataFiles[j];
+                var dataFile = dataFiles.files[j];
 
                 var content = this.generator.generate({
                     problem: {
