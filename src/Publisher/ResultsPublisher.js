@@ -50,7 +50,7 @@
                     result: result
                 });
 
-                var pageId = getPageId(result.filename, problemId);
+                var pageId = getPageId(problemId, result.filename);
                 promises.push(this.client.editPage(pageId, content));
             }
         }
@@ -66,12 +66,12 @@
 
     /**
      * @private
+     * @param {string} problemId
      * @param {string} filename
-     * @param {string} problem
      * @returns {string}
      */
-    function getPageId(filename, problem) {
-        return 'wynik:' + problem + ':' + filename.toLowerCase().replace(/ /g, '-');
+    function getPageId(problemId, filename) {
+        return 'wynik:' + problemId + ':' + filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ResultsPublisher = ResultsPublisher;

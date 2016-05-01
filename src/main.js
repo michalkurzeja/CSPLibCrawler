@@ -40,6 +40,9 @@ module.exports.crawl = function() {
                 .then(function(problems) {
                     return getService('publisher.data_files').publish(problems);
                 })
+                .then(function(problems) {
+                    return getService('publisher.models').publish(problems);
+                })
             ;
         })
     ;

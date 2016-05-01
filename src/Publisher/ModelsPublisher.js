@@ -50,7 +50,7 @@
                     model: modelFile
                 });
 
-                var pageId = getPageId(modelFile, problemId);
+                var pageId = getPageId(problemId, modelFile);
 
                 promises.push(this.client.editPage(pageId, content));
             }
@@ -67,11 +67,12 @@
 
     /**
      * @private
+     * @param {string} problemId
      * @param {object} result
      * @returns {string}
      */
-    function getPageId(result) {
-        return 'rozwiazanie:' + result.filename.toLowerCase().replace(/ /g, '-');
+    function getPageId(problemId, result) {
+        return 'rozwiazanie:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ModelsPublisher = ModelsPublisher;

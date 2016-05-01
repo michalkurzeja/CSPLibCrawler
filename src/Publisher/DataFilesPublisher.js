@@ -50,7 +50,7 @@
                     dataFile: dataFile
                 });
 
-                var pageId = getPageId(dataFile, problemId);
+                var pageId = getPageId(problemId, dataFile);
 
                 promises.push(this.client.editPage(pageId, content));
             }
@@ -67,11 +67,12 @@
 
     /**
      * @private
+     * @param {string} problemId
      * @param {object} result
      * @returns {string}
      */
-    function getPageId(result) {
-        return 'dane:' + result.filename.toLowerCase().replace(/ /g, '-');
+    function getPageId(problemId, result) {
+        return 'dane:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.DataFilesPublisher = DataFilesPublisher;
