@@ -1,5 +1,6 @@
 ~~NOCACHE~~
 [[category:wynik| ]]
+[[typ:={{ result.type }}| ]]
 ====={{ result.filename }}=====
 
 Problem: [[jestWynikiem::problem:{{ problem.id }} | {{ problem.name }} ]]

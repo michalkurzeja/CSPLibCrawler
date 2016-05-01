@@ -31,9 +31,10 @@
      * @returns {object}
      */
     ResultsFetcher.prototype.extractData = function($) {
+        var desc = getDescription($);
         return {
             files: getFiles.call(this, $),
-            description: getDescription($)
+            description: desc
         }
     };
 
@@ -67,8 +68,8 @@
      * @returns {string[]}
      */
     function getDescription($) {
-        return $('.container').children('p').not('.bib').map(function(i, paragraph) {
-            return $(paragraph).text();
+        return $('.container').children().not('.bib').not('table').not('.page-header').map(function(i, paragraph) {
+            return $(paragraph).wrap('<div></div>').parent().html();
         }).toArray()
     }
 

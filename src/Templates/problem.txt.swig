@@ -6,7 +6,7 @@
 [[nazwa:={{ data.specification.name }}]] (
 
 {%- for category in data.specification.categories -%}
-    [[nalezyDo::kategoria:{{ category | str2doku }}|{{ category }}]]
+    [[nalezyDo::kategoria:{{ category | str2doku }}|{{ category }}]]{% if not loop.last %}, {% endif %}
 {%- endfor -%}
 
 )
@@ -31,12 +31,16 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 
 ====== Wyniki  ======
 
-{{ data.results.description }}
+<html>
+{% for paragraph in data.results.description %}
+{{ paragraph | raw }}
+{% endfor %}
+</html>
 
 {{ '{{' -}}
 #ask: [[category:wynik]] [[jestWynikiem::problem:{{ id }}]] |
    ?typ=Typ |
-   default=Brak wyników!
+   default=Brak plików z wynikami!
 }}
 
 ====== Rozwiązania ======
@@ -44,7 +48,7 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 {{ '{{' -}}
 #ask: [[category:rozwiazanie]] [[jestRozwiazaniem::problem:{{ id }}]] |
    ?napisaneW=Język |
-   default=Brak wyników!
+   default=Brak plików z rozwiązaniami!
 }}
 
 {% if data.references.references.length %}
