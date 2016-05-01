@@ -33,26 +33,36 @@
      * @returns {Promise}
      */
     DataFilesPublisher.prototype.publish = function(problemsData) {
-        //var promises = [];
-        //
-        //for (var i in problemsData) {
-        //    var problemResults = problemsData[i].results;
-        //
-        //    for (var j in problemResults) {
-        //        var result = problemResults[j];
-        //        var content = this.generator.generate({result: result});
-        //
-        //        promises.push(this.client.editPage(getPageId(result), content));
-        //    }
-        //}
-        //
-        //return Promise
-        //    .all(promises)
-        //    .then(function() {
-        //        return new Promise(function(resolve) {
-        //            return resolve(problemsData);
-        //        });
-        //    });
+        var promises = [];
+
+        for (var i in problemsData) {
+            var dataFiles = problemsData[i].dataFiles;
+
+            for (var j in dataFiles) {
+                var problemId = problemsData[i].id;
+                var dataFile = dataFiles[j];
+
+                var content = this.generator.generate({
+                    problem: {
+                        id: problemId,
+                        name: problemsData[i].specification.name
+                    },
+                    dataFile: dataFile
+                });
+
+                var pageId = getPageId(dataFile, problemId);
+
+                promises.push(this.client.editPage(pageId, content));
+            }
+        }
+
+        return Promise
+            .all(promises)
+            .then(function() {
+                return new Promise(function(resolve) {
+                    return resolve(problemsData);
+                });
+            });
     };
 
     /**
@@ -61,7 +71,7 @@
      * @returns {string}
      */
     function getPageId(result) {
-        return 'wynik:' + result.filename.toLowerCase().replace(/ /g, '-');
+        return 'dane:' + result.filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.DataFilesPublisher = DataFilesPublisher;

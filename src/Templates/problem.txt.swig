@@ -21,6 +21,14 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 {% endfor %}
 </html>
 
+====== Dane ======
+
+{{ '{{' -}}
+#ask: [[category:dane]] [[jestDana::problem:{{ id }}]] |
+   ?typ=Typ |
+   default=Brak danych!
+}}
+
 ====== Wyniki  ======
 
 {{ data.results.description }}
