@@ -84,7 +84,7 @@
         var size = 0;
 
         for (var i in problemsData) {
-            size += problemsData[i].problemResults.files.length;
+            size += problemsData[i].results.files.length;
         }
 
         return size;

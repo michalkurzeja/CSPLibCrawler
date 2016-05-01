@@ -61,7 +61,7 @@
 
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
-                        
+
                         var promise = scope.publisher
                             .publish(problemId, problemCategories[problemId])
                             .then(function(data) {
