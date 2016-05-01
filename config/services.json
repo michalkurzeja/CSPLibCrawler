@@ -138,6 +138,9 @@
     "content.generator.data_file": {
         "class": "Doku.Content.Generator.DataFileContentGenerator"
     },
+    "content.generator.model": {
+        "class": "Doku.Content.Generator.ModelContentGenerator"
+    },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
@@ -180,6 +183,13 @@
         "class": "Publisher.DataFilesPublisher",
         "arguments": [
             "@content.generator.data_file",
+            "@doku.client"
+        ]
+    },
+    "publisher.models": {
+        "class": "Publisher.ModelsPublisher",
+        "arguments": [
+            "@content.generator.model",
             "@doku.client"
         ]
     }
