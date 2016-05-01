@@ -12,7 +12,7 @@
     function ProblemsPublisher(listFetcher, problemCategoriesFetcher, publisher) {
 
         /**
-         * @private
+         * @public
          * @member listFetcher
          */
         Object.defineProperty(this, 'listFetcher', {
@@ -20,7 +20,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member problemCategoriesFetcher
          */
         Object.defineProperty(this, 'problemCategoriesFetcher', {
@@ -28,7 +28,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member publisher
          */
         Object.defineProperty(this, 'publisher', {

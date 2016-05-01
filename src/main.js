@@ -23,28 +23,19 @@ module.exports.crawl = function() {
                 throw err;
             }
         )
-        //.then(
-        //    function(result) {
-        //        return getService('doku.page_uploader').editPage('problem:prob001', 'Hello Underworld! Hacked by Mich41 Kurz3j4', result.response.jar());
-        //    }
-        //)
-        //.then(
-        //    function(result) {
-        //        return getService('doku.file_uploader').uploadFile('smallHorseA.jpg', {}, result.response.jar());
-        //    }
-        //)
         .then(function() {
             var categoriesPublisher = getService('publisher.categories');
 
             return categoriesPublisher
                 .publish()
                 .then(function() {
-                    var problemsPublisher = getService('publisher.problems');
-                    return problemsPublisher.publish();
+                    return getService('publisher.problems').publish();
                 })
                 .then(function(problems) {
-                    var authorsPublisher = getService('publisher.authors');
-                    return authorsPublisher.publish(problems);
+                    return getService('publisher.authors').publish(problems);
+                })
+                .then(function(problems) {
+                    return getService('publisher.results').publish(problems);
                 })
                 .then(function(problems) {
                     // Here add other publishers...

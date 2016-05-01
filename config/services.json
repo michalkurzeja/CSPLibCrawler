@@ -132,6 +132,9 @@
     "content.generator.author": {
         "class": "Doku.Content.Generator.AuthorContentGenerator"
     },
+    "content.generator.result": {
+        "class": "Doku.Content.Generator.ResultContentGenerator"
+    },
     "publisher.categories": {
         "class": "Publisher.CategoriesPublisher",
         "arguments": [
@@ -160,6 +163,13 @@
         "class": "Publisher.AuthorsPublisher",
         "arguments": [
             "@content.generator.author",
+            "@doku.client"
+        ]
+    },
+    "publisher.results": {
+        "class": "Publisher.ResultsPublisher",
+        "arguments": [
+            "@content.generator.result",
             "@doku.client"
         ]
     }
