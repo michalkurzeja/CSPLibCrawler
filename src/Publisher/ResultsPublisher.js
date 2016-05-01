@@ -42,7 +42,13 @@
                 var problemId = problemsData[i].id;
 
                 var result = problemResults.files[j];
-                var content = this.generator.generate({result: result});
+                var content = this.generator.generate({
+                    problem: {
+                        id: problemId,
+                        name: problemsData[i].specification.name
+                    },
+                    result: result
+                });
 
                 var pageId = getPageId(result.filename, problemId);
                 promises.push(this.client.editPage(pageId, content));
@@ -65,7 +71,7 @@
      * @returns {string}
      */
     function getPageId(filename, problem) {
-        return 'rozwiazanie:' + problem + ':' + filename.toLowerCase().replace(/ /g, '-');
+        return 'wynik:' + problem + ':' + filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ResultsPublisher = ResultsPublisher;

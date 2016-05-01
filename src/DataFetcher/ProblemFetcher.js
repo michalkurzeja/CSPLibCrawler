@@ -17,7 +17,7 @@
     ) {
 
         /**
-         * @private
+         * @public
          * @member {SpecificationFetcher} specificationFetcher
          */
         Object.defineProperty(this, 'specificationFetcher', {
@@ -25,7 +25,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member {DataFilesFetcher} dataFilesFetcher
          */
         Object.defineProperty(this, 'dataFilesFetcher', {
@@ -33,7 +33,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member {ResultsFetcher} resultsFetcher
          */
         Object.defineProperty(this, 'resultsFetcher', {
@@ -41,7 +41,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member {ReferencesFetcher} referencesFetcher
          */
         Object.defineProperty(this, 'referencesFetcher', {
@@ -49,7 +49,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member {ModelsFetcher} modelsFetcher
          */
         Object.defineProperty(this, 'modelsFetcher', {
@@ -57,7 +57,7 @@
         });
 
         /**
-         * @private
+         * @public
          * @member {CiteFetcher} citeFetcher
          */
         Object.defineProperty(this, 'citeFetcher', {
