@@ -10,7 +10,7 @@ This library crawls [CSPLib] page, downloads all the data of problems and saves 
 $ npm install -g csplib-crawler
 ```
 
-## Repository clone
+## Manual installation
 
 ```bash
 $ git clone https://github.com/michalkurzeja/CSPLibCrawler.git
@@ -33,7 +33,7 @@ Simply run the command:
 $ csplib-crawler [--user] [--password]
 ```
 
-## Git installation
+## Manual installation
 
 Run in project directory:
 
