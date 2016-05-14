@@ -97,7 +97,7 @@
      * @returns {string}
      */
     function getPageId(problemId, result) {
-        return 'rozwiazanie:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
+        return 'model:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ModelsPublisher = ModelsPublisher;

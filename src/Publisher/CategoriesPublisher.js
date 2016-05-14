@@ -52,7 +52,7 @@
                     process.stdout.write('Categories: 0%\r');
 
                     for (var i in data) {
-                        var pageId = 'kategoria:' + data[i].name.replace(/ /g, '-').toLowerCase();
+                        var pageId = 'cat:' + data[i].name.replace(/ /g, '-').toLowerCase();
                         var content = scope.generator.generate({data: data[i]});
 
                         var promise = scope.client

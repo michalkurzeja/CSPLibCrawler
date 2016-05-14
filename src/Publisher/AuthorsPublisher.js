@@ -91,7 +91,7 @@
      * @returns {string}
      */
     function getPageId(author) {
-        return 'autor:' + author.toLowerCase().replace(/ /g, '-');
+        return 'author:' + author.toLowerCase().replace(/ /g, '-');
     }
 
     this.AuthorsPublisher = AuthorsPublisher;

@@ -97,7 +97,7 @@
      * @returns {string}
      */
     function getPageId(problemId, filename) {
-        return 'wynik:' + problemId + ':' + filename.toLowerCase().replace(/ /g, '-');
+        return 'result:' + problemId + ':' + filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.ResultsPublisher = ResultsPublisher;

@@ -97,7 +97,7 @@
      * @returns {string}
      */
     function getPageId(problemId, result) {
-        return 'dane:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
+        return 'data:' + problemId + ':' + result.filename.toLowerCase().replace(/ /g, '-');
     }
 
     this.DataFilesPublisher = DataFilesPublisher;

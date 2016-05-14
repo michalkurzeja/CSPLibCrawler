@@ -1,11 +1,11 @@
 ~~NOCACHE~~
-[[category:rozwiazanie| ]]
-[[napisaneW:={{ model.type }}| ]]
+[[category:model| ]]
+[[writtenIn:={{ model.type }}| ]]
 ====={{ model.filename }}=====
 
-Problem: [[jestRozwiazaniem::problem:{{ problem.id }} | {{ problem.name }} ]]
+Problem: [[isModelOf::problem:{{ problem.id }} | {{ problem.name }} ]]
 
-Plik: {{ model.file }}\\
+File: {{ model.file }}\\
 {% if model.notes %}
 Opis: <html>{{ model.notes | raw }}</html>
 {% endif %}

@@ -1,12 +1,12 @@
 ~~NOCACHE~~
-[[category:autor| ]]
-[[daneOsobowe:={{ author }}| ]]
+[[category:author| ]]
+[[personalData:={{ author }}| ]]
 ====={{ author }}=====
 
 ====Problems proposed====
 {{ '{{' -}}
-#ask: [[category:problem]] [[maAutora::autor:{{ author | str2doku }}]] |
-    ?nazwa |
-    sort=nazwa |
+#ask: [[category:problem]] [[hasAuthor::author:{{ author | str2doku }}]] |
+    ?name |
+    sort=name |
     default=No problems proposed
 }}

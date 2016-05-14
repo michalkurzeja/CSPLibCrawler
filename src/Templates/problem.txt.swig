@@ -1,19 +1,19 @@
 ~~NOCACHE~~
 [[category:problem| ]]
 
-====== Nazwa ======
+====== Name ======
 
-[[nazwa:={{ data.specification.name }}]] (
+[[name:={{ data.specification.name }}]] (
 
 {%- for category in data.specification.categories -%}
-    [[nalezyDo::kategoria:{{ category | str2doku }}|{{ category }}]]{% if not loop.last %}, {% endif %}
+    [[belongsTo::cat:{{ category | str2doku }}|{{ category }}]]{% if not loop.last %}, {% endif %}
 {%- endfor -%}
 
 )
 
-====== Opis problemu ======
+====== Problem description ======
 
-Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ author | str2doku }}|{{ author }}]] {%- if not loop.last %}, {% endif %}{%- endfor -%}.
+Proposed by {% for author in data.specification.authors -%}[[hasAuthor::author:{{ author | str2doku }}|{{ author }}]] {%- if not loop.last %}, {% endif %}{%- endfor -%}.
 
 <html>
 {% for paragraph in data.specification.specification %}
@@ -21,7 +21,7 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 {% endfor %}
 </html>
 
-====== Dane ======
+====== Data ======
 
 <html>
 {% for paragraph in data.dataFiles.description %}
@@ -30,12 +30,12 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 </html>
 
 {{ '{{' -}}
-#ask: [[category:dane]] [[jestDana::problem:{{ id }}]] |
-   ?typ=Typ |
-   default=Brak plików z danymi!
+#ask: [[category:data]] [[isData::problem:{{ id }}]] |
+   ?type=Type |
+   default=There is no data!
 }}
 
-====== Wyniki  ======
+====== Results  ======
 
 <html>
 {% for paragraph in data.results.description %}
@@ -44,12 +44,12 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 </html>
 
 {{ '{{' -}}
-#ask: [[category:wynik]] [[jestWynikiem::problem:{{ id }}]] |
+#ask: [[category:result]] [[isResultOf::problem:{{ id }}]] |
    ?typ=Typ |
-   default=Brak plików z wynikami!
+   default=There is no results!
 }}
 
-====== Rozwiązania ======
+====== Models ======
 
 <html>
 {% for paragraph in data.models.description %}
@@ -58,13 +58,13 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 </html>
 
 {{ '{{' -}}
-#ask: [[category:rozwiazanie]] [[jestRozwiazaniem::problem:{{ id }}]] |
-   ?napisaneW=Język |
-   default=Brak plików z rozwiązaniami!
+#ask: [[category:model]] [[isModelOf::problem:{{ id }}]] |
+   ?writtenIn=Language |
+   default=There is no models!
 }}
 
 {% if data.references.references.length %}
-====== Źródła ======
+====== References ======
 
 {% for reference in data.references.references %}
 //{{ reference.bibkey }}//\\
@@ -82,10 +82,10 @@ Proposed by {% for author in data.specification.authors -%}[[maAutora::autor:{{ 
 
 {% endif %}
 
-====== Cytuj ======
+====== Cite ======
 
-Aby zacytować ten problem użyj poniższego kodu bibtex:
+To cite this CSPLib problem, please use the following bibtex entry:
 {{ data.cite.problem }}
 
-Aby zacytować całą blibliotekę CSPLib użyj następującego kodu:
+To cite CSPLib as a whole, please use the following bibtex entry:
 {{ data.cite.csplib }}

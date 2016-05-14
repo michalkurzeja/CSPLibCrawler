@@ -1,11 +1,11 @@
 ~~NOCACHE~~
-[[category:wynik| ]]
-[[typ:={{ result.type }}| ]]
+[[category:result| ]]
+[[type:={{ result.type }}| ]]
 ====={{ result.filename }}=====
 
-Problem: [[jestWynikiem::problem:{{ problem.id }} | {{ problem.name }} ]]
+Problem: [[isResultOf::problem:{{ problem.id }} | {{ problem.name }} ]]
 
-Plik: {{ result.file }}\\
+File: {{ result.file }}\\
 {% if result.notes %}
 Opis: <html>{{ result.notes | raw }}</html>
 {% endif %}

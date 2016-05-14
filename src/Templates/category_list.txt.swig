@@ -1,13 +1,12 @@
 ~~NOCACHE~~
-[[category:kategoria| ]]
-[[nazwa:={{ data.name }}| ]]
+[[category:cat| ]]
+[[name:={{ data.name }}| ]]
 
 ====== {{ data.name }} ======
 
-
-Problemy:
+Problems:
 {{ '{{' -}}
-#ask: [[category:problem]] [[nalezyDo::kategoria: {{- data.name | str2doku -}} ]] |
-   ?nazwa=Nazwa |
-   default=Brak wyników!
+#ask: [[category:problem]] [[belongsTo::cat: {{- data.name | str2doku -}} ]] |
+   ?name=name |
+   default=No problems proposed
 }}

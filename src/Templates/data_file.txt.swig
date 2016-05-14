@@ -1,11 +1,11 @@
 ~~NOCACHE~~
-[[category:dane| ]]
-[[typ:={{ dataFile.type }}| ]]
+[[category:data| ]]
+[[type:={{ dataFile.type }}| ]]
 ====={{ dataFile.filename }}=====
 
-Problem: [[jestDana::problem:{{ problem.id }} | {{ problem.name }} ]]
+Problem: [[isData::problem:{{ problem.id }} | {{ problem.name }} ]]
 
-Plik: {{ dataFile.file }}\\
+File: {{ dataFile.file }}\\
 {% if dataFile.notes %}
 Opis: <html>{{ dataFile.notes | raw }}</html>
 {% endif %}
