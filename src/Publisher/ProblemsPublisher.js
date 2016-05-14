@@ -61,8 +61,6 @@
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
 
-                        if (problemId !== 'prob001') continue;
-
                         var promise = scope.publisher
                             .publish(problemId, problemCategories[problemId])
                             .then(function(data) {
