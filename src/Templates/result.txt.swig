@@ -5,7 +5,9 @@
 
 Problem: [[isResultOf::problem:{{ problem.id }} | {{ problem.name }} ]]
 
-File: {{ result.file }}\\
+File: {{ '{{' -}}
+:csplib:{{ problem.id }}_{{ result.filename }}|}}\\
+
 {% if result.notes %}
 Opis: <html>{{ result.notes | raw }}</html>
 {% endif %}

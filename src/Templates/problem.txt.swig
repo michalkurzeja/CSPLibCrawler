@@ -45,7 +45,7 @@ Proposed by {% for author in data.specification.authors -%}[[hasAuthor::author:{
 
 {{ '{{' -}}
 #ask: [[category:result]] [[isResultOf::problem:{{ id }}]] |
-   ?typ=Typ |
+   ?type=Type |
    default=There is no results!
 }}
 

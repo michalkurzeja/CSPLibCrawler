@@ -80,12 +80,12 @@
 
             var filename = $td.first().text().trim();
             var fileUrl = getFile.call(scope, $td.first().children('a'));
+            scope.fileDownloader.download(fileUrl, filename, scope.problemId);
 
             return {
                 filename: filename,
                 type: $td.eq(1).text().trim(),
-                notes: $td.last().text().trim(),
-                file: scope.fileDownloader.download(fileUrl, filename, scope.problemId)
+                notes: $td.last().text().trim()
             };
         }).toArray();
     }
