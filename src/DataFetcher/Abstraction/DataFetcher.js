@@ -71,14 +71,23 @@
      * @returns {*}
      */
     function mutateElement(obj, base, path) {
+
         if (isArray(obj) || isObject(obj)) {
             for (var i in obj) {
                 obj[i] = mutateElement(obj[i], base, path);
             }
         }
         else if (typeof(obj) == 'string' || obj instanceof String) {
+
+            var pattern = /src=\"(.*?)\"/gi;
+            var match   = null;
+
+            while (match = pattern.exec(obj)) {
+                //results.push(match[1]);
+            }
+
             obj = obj
-                .replace(/\<img(.*?)src=\"(.*?)\"(.*?)\>/gi, '<img $1 src="' + base + '/' + path + '/$2" $3>')
+                .replace(/\<img(.*?)src=\"(.*?)\/([^\.\/]*?)\.([a-zA-Z0-9]*?)\"(.*?)\>/gi, '{{:problem:$3.$4|}}')
                 .replace(/\<a href=\"\/(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/$1">$2</a>')
                 .replace(/\<a href=\"(([\.]{1,2}\/)+?)(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/' + path + '/$2$3">$4</a>')
             ;
