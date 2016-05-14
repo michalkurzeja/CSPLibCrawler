@@ -56,14 +56,16 @@
         "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
         "arguments": [
             "@router",
-          "@data_fetcher.problem.util.description_extractor"
+            "@data_fetcher.problem.util.description_extractor",
+            "@doku.http.downloader_file"
         ]
     },
     "data_fetcher.problem.results": {
         "class": "DataFetcher.ProblemFetcher.ResultsFetcher",
         "arguments": [
             "@router",
-          "@data_fetcher.problem.util.description_extractor"
+            "@data_fetcher.problem.util.description_extractor",
+            "@doku.http.downloader_file"
         ]
     },
     "data_fetcher.problem.references": {
@@ -76,7 +78,8 @@
         "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
         "arguments": [
             "@router",
-            "@data_fetcher.problem.util.description_extractor"
+            "@data_fetcher.problem.util.description_extractor",
+            "@doku.http.downloader_file"
         ]
     },
     "data_fetcher.problem.cite": {
@@ -105,6 +108,12 @@
         "class": "Doku.Http.DokuHttpUploaderFile",
         "arguments": [
             "@router",
+            "@doku.http.client"
+        ]
+    },
+    "doku.http.downloader_file": {
+        "class": "Doku.Http.DokuHttpDownloaderFile",
+        "arguments": [
             "@doku.http.client"
         ]
     },

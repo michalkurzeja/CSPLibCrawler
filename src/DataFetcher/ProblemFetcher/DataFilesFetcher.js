@@ -8,8 +8,9 @@
      * @constructor
      * @param {Router} router
      * @param {DescriptionExtractor} descriptionExtractor
+     * @param {DokuHttpDownloaderFile} fileDownloader
      */
-    function DataFilesFetcher(router, descriptionExtractor) {
+    function DataFilesFetcher(router, descriptionExtractor, fileDownloader) {
 
         /**
          * @private
@@ -25,6 +26,14 @@
          */
         Object.defineProperty(this, 'descriptionExtractor', {
             value: descriptionExtractor
+        });
+
+        /**
+         * @private
+         * @member {DokuHttpDownloaderFile} fileDownloader
+         */
+        Object.defineProperty(this, 'fileDownloader', {
+            value: fileDownloader
         });
 
         /**
@@ -68,11 +77,14 @@
         return $('table.tablesorter > tbody').find('tr').map(function(i, dataFile) {
             var $td = $(dataFile).children('td');
 
+            var filename = $td.first().text().trim();
+            var fileUrl = getFile.call(scope, $td.first().children('a'));
+
             return {
-                filename: $td.first().text().trim(),
+                filename: filename,
                 type: $td.eq(1).text().trim(),
                 notes: $td.last().text().trim(),
-                file: getFile.call(scope, $td.first().children('a'))
+                file: scope.fileDownloader.download(fileUrl, filename, scope.problemId)
             };
         }).toArray();
     }

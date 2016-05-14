@@ -1,4 +1,5 @@
 {
     "dokuwiki.host": "http://<wiki-url>/",
+    "dokuwiki.media.dir": "<media-dir>",
     "csplib.host": "http://www.csplib.org/"
 }
