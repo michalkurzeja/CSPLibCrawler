@@ -6,10 +6,12 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
      * @param {Router} router
      */
-    function ProblemCategoriesFetcher(router) {
-        CategoryListFetcher.call(this, router);
+    function ProblemCategoriesFetcher(httpClient, fileDownloader, router) {
+        CategoryListFetcher.call(this, httpClient, fileDownloader, router);
     }
 
     /**

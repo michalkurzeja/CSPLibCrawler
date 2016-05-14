@@ -6,11 +6,12 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
      * @param {Router} router
      * @param {DescriptionExtractor} descriptionExtractor
-     * @param {DokuHttpDownloaderFile} fileDownloader
      */
-    function DataFilesFetcher(router, descriptionExtractor, fileDownloader) {
+    function DataFilesFetcher(httpClient, fileDownloader, router, descriptionExtractor) {
 
         /**
          * @private
@@ -45,7 +46,7 @@
             writable: true
         });
 
-        DataFetcher.call(this);
+        DataFetcher.call(this, httpClient, fileDownloader, router);
     }
 
     /**

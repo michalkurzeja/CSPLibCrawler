@@ -6,11 +6,13 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
      * @param {Router} router
      */
-    function CiteFetcher(router) {
+    function CiteFetcher(httpClient, fileDownloader, router) {
         Object.defineProperty(this, 'router', {value: router});
-        DataFetcher.call(this);
+        DataFetcher.call(this, httpClient, fileDownloader, router);
     }
 
     /**

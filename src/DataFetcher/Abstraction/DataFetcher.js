@@ -1,20 +1,38 @@
 (function() {
     'use strict';
 
-    var HttpClient  = use('Http.HttpClient');
-    var cheerio     = use('Cheerio');
+    var cheerio                 = use('Cheerio');
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
+     * @param {Router} router
      */
-    function DataFetcher() {
+    function DataFetcher(httpClient, fileDownloader, router) {
 
         /**
          * @private
          * @member {HttpClient} httpClient
          */
         Object.defineProperty(this, 'httpClient', {
-            value: new HttpClient()
+            value: httpClient
+        });
+
+        /**
+         * @private
+         * @member {DokuHttpDownloaderFile} fileDownloader
+         */
+        Object.defineProperty(this, 'fileDownloader', {
+            value: fileDownloader
+        });
+
+        /**
+         * @private
+         * @member {Router} router
+         */
+        Object.defineProperty(this, 'router', {
+            value: router
         });
     }
 
@@ -30,7 +48,7 @@
             return function(result) {
                 var $ = cheerio.load(result.body);
                 var obj = context.extractData($);
-                return mutateData(obj, url);
+                return mutateData.call(context, obj, url);
             };
         })(this));
     };
@@ -60,7 +78,7 @@
         base = 'http://' + url.shift();
         path = url.join('/');
 
-        return mutateElement(obj, base, path);
+        return mutateElement.call(this, obj, base, path);
     }
 
     /**
@@ -74,26 +92,31 @@
 
         if (isArray(obj) || isObject(obj)) {
             for (var i in obj) {
-                obj[i] = mutateElement(obj[i], base, path);
+                obj[i] = mutateElement.call(this, obj[i], base, path);
             }
         }
         else if (typeof(obj) == 'string' || obj instanceof String) {
 
             var pattern = /src=\"(.*?)\"/gi;
-            var match   = null;
+            var match;
 
             while (match = pattern.exec(obj)) {
-                //results.push(match[1]);
+                var url = match[1];
+                this.fileDownloader.download(base + '/'  + path + '/' + url, getImageName(url));
             }
 
             obj = obj
-                .replace(/\<img(.*?)src=\"(.*?)\/([^\.\/]*?)\.([a-zA-Z0-9]*?)\"(.*?)\>/gi, '{{:problem:$3.$4|}}')
+                .replace(/\<img(.*?)src=\"(.*?)\/([^\.\/]*?)\.([a-zA-Z0-9]*?)\"(.*?)\>/gi, '</html>{{:csplib:$3.$4|}}<html>')
                 .replace(/\<a href=\"\/(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/$1">$2</a>')
                 .replace(/\<a href=\"(([\.]{1,2}\/)+?)(.*?)\"\>(.*?)\<\/a\>/gi, '<a href="' + base + '/' + path + '/$2$3">$4</a>')
             ;
         }
 
         return obj;
+    }
+
+    function getImageName(imageUrl) {
+        return imageUrl.slice(imageUrl.lastIndexOf('/')+1);
     }
 
     /**

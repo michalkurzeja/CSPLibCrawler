@@ -20,18 +20,24 @@
     "data_fetcher.category_list": {
         "class": "DataFetcher.CategoryListFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },
     "data_fetcher.problem_categories": {
         "class": "DataFetcher.ProblemCategoriesFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },
     "data_fetcher.problem_list": {
         "class": "DataFetcher.ProblemListFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },
@@ -49,42 +55,51 @@
     "data_fetcher.problem.specification": {
         "class": "DataFetcher.ProblemFetcher.SpecificationFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },
     "data_fetcher.problem.data_files": {
         "class": "DataFetcher.ProblemFetcher.DataFilesFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router",
-            "@data_fetcher.problem.util.description_extractor",
-            "@doku.http.downloader_file"
+            "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.results": {
         "class": "DataFetcher.ProblemFetcher.ResultsFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router",
-            "@data_fetcher.problem.util.description_extractor",
-            "@doku.http.downloader_file"
+            "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.references": {
         "class": "DataFetcher.ProblemFetcher.ReferencesFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },
     "data_fetcher.problem.models": {
         "class": "DataFetcher.ProblemFetcher.ModelsFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router",
-            "@data_fetcher.problem.util.description_extractor",
-            "@doku.http.downloader_file"
+            "@data_fetcher.problem.util.description_extractor"
         ]
     },
     "data_fetcher.problem.cite": {
         "class": "DataFetcher.ProblemFetcher.CiteFetcher",
         "arguments": [
+            "@http_client",
+            "@doku.http.downloader_file",
             "@router"
         ]
     },

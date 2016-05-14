@@ -58,11 +58,10 @@
 
                     process.stdout.write('Problems: 0%\r');
 
-
                     for (var i in problemData) {
                         var problemId = problemData[i].problemId;
 
-                        if (problemId !== 'prob001') continue;
+                        if (problemId !== 'prob047') continue;
 
                         var promise = scope.publisher
                             .publish(problemId, problemCategories[problemId])

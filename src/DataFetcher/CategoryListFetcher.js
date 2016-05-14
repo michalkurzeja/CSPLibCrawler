@@ -6,9 +6,11 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
      * @param {Router} router
      */
-    function CategoryListFetcher(router) {
+    function CategoryListFetcher(httpClient, fileDownloader, router) {
 
         /**
          * @private
@@ -18,7 +20,7 @@
             value: router.url('%csplib.host%', 'csplib.categories')
         });
 
-        DataFetcher.call(this);
+        DataFetcher.call(this, httpClient, fileDownloader, router);
     }
 
     /**

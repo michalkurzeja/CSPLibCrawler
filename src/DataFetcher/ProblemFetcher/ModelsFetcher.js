@@ -6,16 +6,17 @@
 
     /**
      * @constructor
+     * @param {HttpClient} httpClient
+     * @param {DokuHttpDownloaderFile} fileDownloader
      * @param {Router} router
      * @param {DescriptionExtractor} descriptionExtractor
-     * @param {DokuHttpDownloaderFile} fileDownloader
      */
-    function ModelsFetcher(router, descriptionExtractor, fileDownloader) {
+    function ModelsFetcher(httpClient, fileDownloader, router, descriptionExtractor) {
         Object.defineProperty(this, 'router', {value: router});
         Object.defineProperty(this, 'descriptionExtractor', {value: descriptionExtractor});
         Object.defineProperty(this, 'fileDownloader', {value: fileDownloader});
         Object.defineProperty(this, 'problemId', {value: null, writable: true});
-        DataFetcher.call(this);
+        DataFetcher.call(this, httpClient, fileDownloader, router);
     }
 
     /**
