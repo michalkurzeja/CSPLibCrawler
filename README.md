@@ -20,7 +20,7 @@ $ npm install
 
 # Configuration
 
-The library requires the host name of you designated DokuWiki installation.
+The library requires the host name and the path to the media directory of the local DokuWiki installation.
 You must provide the parameter in `params.json` file, found in the installation directory: `config/params.json`.
 
 # Usage
@@ -43,7 +43,7 @@ $ node bin/crawl.js [--user] [--password]
 
 # Options
 
-You can override any parameter from `params.json` file via cli-interface, e.g.
+You can override any parameter from `params.json` file via cli-interface, e.g.:
 
 ```bash
 $ csplib-crawler --dokuwiki.host=http://my-dokuwiki-host.com/
